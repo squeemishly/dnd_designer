@@ -1,0 +1,9 @@
+{
+  "name": "DND_Designer",
+  "version": "1.0.0",
+  "description": "Create and build DND characters",
+  "main": "index.js",
+  "repository": "git@github.com:squeemishly/dnd_designer.git",
+  "author": "Benjamin Ross & Kristen Squee Mueller",
+  "license": "MIT"
+}
