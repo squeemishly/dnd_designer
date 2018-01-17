@@ -5,5 +5,23 @@
   "main": "index.js",
   "repository": "git@github.com:squeemishly/dnd_designer.git",
   "author": "Benjamin Ross & Kristen Squee Mueller",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "cookie-session": "^2.0.0-beta.3",
+    "express": "^4.16.2",
+    "knex": "^0.14.2",
+    "node": "^9.4.0",
+    "nodemon": "^1.14.11",
+    "passport": "^0.4.0",
+    "passport-google-oauth20": "^1.0.0",
+    "pg": "^7.4.1"
+  },
+  "engines": {
+    "node": "9.4.0",
+    "yarn": "1.3.2"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "server": "nodemon index.js"
+  }
 }
