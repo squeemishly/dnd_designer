@@ -1,4 +1,5 @@
-const passport = require('passport')
+const passport = require("passport");
+const _ = require("lodash");
 
 module.exports = app => {
   app.get(
@@ -6,15 +7,13 @@ module.exports = app => {
     passport.authenticate("google", {
       scope: ["profile", "email"]
     })
-  )
+  );
 
   app.get(
     "/auth/google/callback",
     passport.authenticate("google"),
     (req, res) => {
-      // res.redirect("")
+      res.send(req.user);
     }
-  )
-
-  // app.get("/api/logout", )
-}
+  );
+};

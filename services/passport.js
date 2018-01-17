@@ -1,6 +1,23 @@
-const passport = require('passport')
-const GoogleStrategy = require('passport-google-oauth20').Strategy
-const keys = require("../config/keys")
+const passport = require("passport");
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
+const keys = require("../config/keys");
+const environment = process.env.NODE_ENV || "development";
+const configuration = require("../knexfile")[environment];
+const database = require("knex")(configuration);
+
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser((id, done) => {
+  database.raw(`
+    SELECT * FROM users
+    WHERE id = ?`,
+    [id]
+  ).then(user => {
+    done(null, user)
+  })
+})
 
 passport.use(
   new GoogleStrategy(
@@ -9,10 +26,26 @@ passport.use(
       clientSecret: keys.googleClientSecret,
       callbackURL: "/auth/google/callback"
     },
-    (accessToken, refreshToken, profile, done) => {
-      console.log(`Access Token: ${accessToken}`)
-      console.log(`Access Token: ${refreshToken}`)
-      console.log(`Access Token: ${profile}`)
+    async (accessToken, refreshToken, profile, done) => {
+      const id = profile.id;
+      const existingUser = await database.raw(`
+          SELECT * FROM users
+          WHERE googleID = ?`,
+        [id]
+      );
+
+      if (existingUser.rows.length > 0) {
+        return done(null, existingUser.rows[0]);
+      }
+
+      const user = await database.raw(`
+          INSERT INTO users("googleid", "username")
+          VALUES (?, ?)
+          RETURNING id, googleid, username`,
+        [id, profile.displayName]
+      );
+
+      done(null, user);
     }
   )
-)
+);
