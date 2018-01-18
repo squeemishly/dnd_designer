@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 class Header extends Component {
   renderLoggedInContent() {
-    switch(this.props.auth.username === undefined) {
+    switch (this.props.auth.username === undefined) {
       case null:
         return "";
       case true:
@@ -15,8 +15,10 @@ class Header extends Component {
       default:
         return [
           <li key="1">{this.props.auth.username}</li>,
-          <li key="2"><a href="/api/logout">Logout</a></li>
-        ]
+          <li key="2">
+            <a href="/api/logout">Logout</a>
+          </li>
+        ];
     }
   }
 
@@ -26,6 +28,9 @@ class Header extends Component {
         <div className="nav-wrapper">
           <a className="left brand-logo">DND Designer</a>
           <ul className="right">
+            <li>
+              <a href="/character/new">Create New Character</a>
+            </li>
             {this.renderLoggedInContent()}
           </ul>
         </div>
@@ -34,10 +39,10 @@ class Header extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     auth: state.auth
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps)(Header);
