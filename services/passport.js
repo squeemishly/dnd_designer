@@ -45,7 +45,7 @@ passport.use(
         [id, profile.displayName]
       );
 
-      done(null, user);
+      done(null, user.rows[0]);
     }
   )
 );
