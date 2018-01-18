@@ -2,16 +2,24 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Modal from "./UI/Modal/Modal"
 import Aux from "../hoc/Aux/Aux"
-import CharacterInfo from "./CharacterInfo/CharacterInfo"
+import RaceInfo from "./RaceInfo/RaceInfo"
 
 class CharacterNew extends Component {
   state = {
-    characters: ["Dwarf", "Elf", "Halfling"],
-    showModal: false
+    races: ["Dwarf", "Elf", "Halfling"],
+    showModal: false,
+    selectedRace: null
   };
 
   removeModal = () => {
     this.setState({showModal: false})
+  }
+
+  selectRaceInfo = (race) => {
+    this.setState({
+      showModal: true,
+      selectedRace: race
+    })
   }
 
   render() {
@@ -21,15 +29,15 @@ class CharacterNew extends Component {
           show={this.state.showModal}
           removeModal={this.removeModal}
         >
-          <CharacterInfo />
+          <RaceInfo races={this.state.selectedRace} />
         </Modal>
 
         <div>
           <h1>CHOOSE YOUR RACE:</h1>
           <h6>Click a character race for more information</h6>
-          <ul>{this.state.characters.map(character =>
-            <li onClick={() => {this.setState({showModal: true})}}>
-              {character}
+          <ul>{this.state.races.map(race =>
+            <li onClick={() => this.selectRaceInfo(race)}>
+              {race}
             </li>
           )}
           </ul>

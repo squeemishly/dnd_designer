@@ -2,6 +2,7 @@ exports.up = function(knex, Promise) {
     let createQuery = `CREATE TABLE races(
       id SERIAL PRIMARY KEY NOT NULL,
       name TEXT,
+      image TEXT,
       ability_score_increase TEXT,
       max_age INTEGER,
       size TEXT,

@@ -8,3 +8,11 @@ export const fetchUser = () => async dispatch => {
     payload: res.data
   })
 }
+
+export const fetchRace = (name) => async dispatch => {
+  const res = await axios.get(`/api/races/${name}`);
+  dispatch({
+    type: actionTypes.FETCH_RACE_INFO,
+    payload: res.data
+  })
+}

@@ -25,9 +25,9 @@ class Header extends Component {
   render() {
     return (
       <nav>
-        <div className="nav-wrapper">
-          <a className="left brand-logo">DND Designer</a>
-          <ul className="right">
+        <div className="">
+          <a className="">DND Designer</a>
+          <ul className="">
             <li>
               <a href="/character/new">Create New Character</a>
             </li>
