@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Modal from "./UI/Modal/Modal"
 import Aux from "../hoc/Aux/Aux"
+import CharacterInfo from "./CharacterInfo/CharacterInfo"
 
 class CharacterNew extends Component {
   state = {
@@ -11,8 +12,8 @@ class CharacterNew extends Component {
   render() {
     return (
       <Aux>
-        <Modal>
-          Modal Information
+        <Modal show>
+          <CharacterInfo />
         </Modal>
 
         <div>
