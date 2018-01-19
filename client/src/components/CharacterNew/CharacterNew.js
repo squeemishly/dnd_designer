@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import Modal from "../UI/Modal/Modal";
 import Aux from "../../hoc/Aux/Aux";
 import RaceInfo from "../RaceInfo/RaceInfo";
-import * as actions from "../../actions";
+import * as actions from "../../store/actions";
 
 class CharacterNew extends Component {
   state = {

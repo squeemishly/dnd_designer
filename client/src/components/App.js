@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { BrowserRouter, Route } from "react-router-dom";
 import Header from "./Header/Header";
-import * as actions from "../actions"
+import * as actions from "../store/actions"
 
 import CharacterNew from "./CharacterNew/CharacterNew"
 
