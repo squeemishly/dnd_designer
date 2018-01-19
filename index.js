@@ -20,10 +20,6 @@ app.use(
   })
 );
 
-app.get("/", (req, res) => {
-  res.send({ hi: "there" });
-});
-
 app.use(passport.initialize());
 app.use(passport.session());
 
