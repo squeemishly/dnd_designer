@@ -10,14 +10,17 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-  database.raw(`
+  database
+    .raw(
+      `
     SELECT * FROM users
     WHERE id = ?`,
-    [id]
-  ).then(user => {
-    done(null, user)
-  })
-})
+      [id]
+    )
+    .then(user => {
+      done(null, user);
+    });
+});
 
 passport.use(
   new GoogleStrategy(
@@ -29,7 +32,8 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, done) => {
       const id = profile.id;
-      const existingUser = await database.raw(`
+      const existingUser = await database.raw(
+        `
           SELECT * FROM users
           WHERE googleID = ?`,
         [id]
@@ -39,7 +43,8 @@ passport.use(
         return done(null, existingUser.rows[0]);
       }
 
-      const user = await database.raw(`
+      const user = await database.raw(
+        `
           INSERT INTO users("googleid", "username")
           VALUES (?, ?)
           RETURNING id, googleid, username`,
