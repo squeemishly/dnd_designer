@@ -10,12 +10,9 @@ export const fetchUser = () => async dispatch => {
 };
 
 export const fetchRace = name => async dispatch => {
-  axios.get(`/api/character/race/${name}`)
-    .then(response => {
-      console.log("RACEYYYY: ", response)
-    })
-  // dispatch({
-  //   type: actionTypes.FETCH_RACE_INFO,
-  //   payload: res.data
-  // });
+  const res = await axios.get(`/api/character/race/${name}`)
+  dispatch({
+    type: actionTypes.FETCH_RACE_INFO,
+    payload: res.data
+  });
 };

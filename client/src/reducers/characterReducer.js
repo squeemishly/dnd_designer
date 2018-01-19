@@ -3,12 +3,12 @@ import * as actionTypes from "../actions/types";
 const initialState = {};
 
 const characterReducer = (state = initialState, action) => {
-  console.log("Action: ", action);
+  console.log(action.payload);
   switch (action.type) {
     case actionTypes.FETCH_RACE_INFO:
       return {
         ...state,
-        race: action.payload
+        character: action.payload
       };
     default:
       return state;

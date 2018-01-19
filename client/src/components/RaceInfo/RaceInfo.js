@@ -1,39 +1,53 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import classes from "./RaceInfo.css";
-import * as actions from "../../actions";
+import Aux from '../../hoc/Aux/Aux'
+// import * as actions from "../../actions";
 
 class RaceInfo extends Component {
-  componentDidMount() {
-    // console.log("RACE", this.props.race);
-    // this.props.fetchRace(this.props.race);
-  }
-
   render() {
+    let raceInfo = <h1>No Race Selected</h1>;
+
+    if (this.props.charas.character) {
+      raceInfo = (
+        <div>
+          <h2>{this.props.charas.character.name}</h2>
+          <h3>{this.props.charas.character.alignment}</h3>
+          <img
+            className={classes.IMG}
+            src={this.props.charas.character.image}
+            alt="Character"
+          />
+          <ul>
+            <li>
+              Ability Score: {this.props.charas.character.ability_score_increase}
+            </li>
+            <li>Age: {this.props.charas.character.max_age}</li>
+            <li>
+              Physique:
+              <ul>
+                <li>Size: {this.props.charas.character.size}</li>
+                <li>Height: {this.props.charas.character.height}</li>
+                <li>Weight: {this.props.charas.character.avg_weight}</li>
+              </ul>
+            </li>
+          </ul>
+          <p>{this.props.charas.character.description}</p>
+        </div>
+      );
+    }
+    console.log(raceInfo)
     return (
-      <div>{this.props.race}</div>
-      //   <div>
-      //   <img className={classes.IMG} src={this.props.race.image} alt="Character" />
-      //   <ul>
-      //     <li>Ability Score: {this.props.race.abilityScoreIncrease}</li>
-      //     <li>Age: {this.props.race.maxAge}</li>
-      //     <li>Physique:
-      //       <ul>
-      //         <li>Size: {this.props.race.physique.size}</li>
-      //         <li>Height: {this.props.race.physique.height}</li>
-      //         <li>Weight: {this.props.race.physique.maxWeight}</li>
-      //       </ul>
-      //     </li>
-      //   </ul>
-      //   <p>{this.props.race.description}</p>
-      // </div>
+      <Aux>
+        {raceInfo}
+      </Aux>
     );
   }
 }
 
 const mapStateToProps = state => {
   return {
-    character: state.charas
+    charas: state.charas
   };
 };
 
