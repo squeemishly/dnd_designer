@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import classes from "./RaceInfo.css";
-import Aux from '../../hoc/Aux/Aux'
 
 class RaceInfo extends Component {
   render() {
@@ -36,9 +35,9 @@ class RaceInfo extends Component {
       );
     }
     return (
-      <Aux>
+      <div className={classes.RaceInfoContainer}>
         {raceInfo}
-      </Aux>
+      </div>
     );
   }
 }

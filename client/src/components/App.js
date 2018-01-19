@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { BrowserRouter, Route } from "react-router-dom";
-import Header from "./Header";
+import Header from "./Header/Header";
 import * as actions from "../actions"
 
-import CharacterNew from "./CharacterNew"
+import CharacterNew from "./CharacterNew/CharacterNew"
 
 const Landing = () => <h2>Landing Page</h2>
 const CharacterList = () => <h2>Character List Page</h2>
