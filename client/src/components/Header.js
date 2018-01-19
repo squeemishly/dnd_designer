@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import classes from "./Header.css";
 
 class Header extends Component {
   renderLoggedInContent() {
@@ -14,6 +15,9 @@ class Header extends Component {
         );
       default:
         return [
+          <li>
+              <a href="/character/new">Create New Character</a>
+            </li>,
           <li key="1">{this.props.auth.username}</li>,
           <li key="2">
             <a href="/api/logout">Logout</a>
@@ -24,17 +28,15 @@ class Header extends Component {
 
   render() {
     return (
-      <nav>
-        <div className="">
-          <a className="">DND Designer</a>
-          <ul className="">
-            <li>
-              <a href="/character/new">Create New Character</a>
-            </li>
+      <header className={classes.Toolbar}>
+        <a className="">DND Designer</a>
+        <nav className={classes.Navbar}>
+          <ul className={classes.NavbarLinks}>
+            
             {this.renderLoggedInContent()}
           </ul>
-        </div>
-      </nav>
+        </nav>
+      </header>
     );
   }
 }

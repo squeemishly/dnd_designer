@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import classes from "./RaceInfo.css";
 import Aux from '../../hoc/Aux/Aux'
-// import * as actions from "../../actions";
 
 class RaceInfo extends Component {
   render() {
@@ -36,7 +35,6 @@ class RaceInfo extends Component {
         </div>
       );
     }
-    console.log(raceInfo)
     return (
       <Aux>
         {raceInfo}
@@ -50,11 +48,5 @@ const mapStateToProps = state => {
     charas: state.charas
   };
 };
-
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     fetchRace: name => dispatch(actions.fetchRace(name))
-//   };
-// };
 
 export default connect(mapStateToProps)(RaceInfo);
