@@ -3,19 +3,28 @@ import { connect } from "react-redux";
 import classes from "./RaceInfo.css";
 
 class RaceInfo extends Component {
+  selectRace = event => {
+
+  }
+
   render() {
     let raceInfo = <h1>No Race Selected</h1>;
 
     if (this.props.charas.character) {
       raceInfo = (
         <div>
-          <h2>{this.props.charas.character.name}</h2>
-          <h3>{this.props.charas.character.alignment}</h3>
+          <button onClick={() => this.selectRace()}>
+            Choose {this.props.charas.character.name}
+          </button>
+
+          <h2 className="characterName">{this.props.charas.character.name}</h2>
+          <h3 className="characterAlignment">{this.props.charas.character.alignment}</h3>
           <img
             className={classes.IMG}
             src={this.props.charas.character.image}
             alt="Character"
           />
+
           <ul>
             <li>
               Ability Score: {this.props.charas.character.ability_score_increase}
@@ -30,6 +39,7 @@ class RaceInfo extends Component {
               </ul>
             </li>
           </ul>
+
           <p>{this.props.charas.character.description}</p>
         </div>
       );

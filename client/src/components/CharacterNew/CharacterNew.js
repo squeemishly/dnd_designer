@@ -25,10 +25,6 @@ class CharacterNew extends Component {
     });
   };
 
-  selectRace = event => {
-    
-  }
-
   render() {
     return (
       <Aux>
@@ -38,17 +34,12 @@ class CharacterNew extends Component {
 
         <div className={classes.RaceSelectContainer}>
           <h1>CHOOSE YOUR RACE:</h1>
-          <h6>Click a character race for more information</h6>
+          <h4>Click a character race for more information</h4>
           <ul className={classes.RaceList}>
             {this.state.races.map(race => (
               <li key={race}>
-                <div className={classes.RaceListItem}>
-                  <div className={classes.MoreInformation}onClick={() => this.selectRaceInfo(race)}>
-                    Click for {race} Information
-                  </div>
-                  <button onClick={() => this.selectRace()}>
-                    Choose {race}
-                  </button>
+                <div className={classes.RaceListItem}onClick={() => this.selectRaceInfo(race)}>
+                  {race}
                 </div>
               </li>
             ))}
