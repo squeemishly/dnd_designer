@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import Modal from "./UI/Modal/Modal"
 import Aux from "../hoc/Aux/Aux"
 import RaceInfo from "./RaceInfo/RaceInfo"
+import * as actions from '../actions'
 
 class CharacterNew extends Component {
   state = {
@@ -16,6 +17,7 @@ class CharacterNew extends Component {
   }
 
   selectRaceInfo = (race) => {
+    this.props.fetchRace(race)
     this.setState({
       showModal: true,
       selectedRace: race
@@ -29,14 +31,14 @@ class CharacterNew extends Component {
           show={this.state.showModal}
           removeModal={this.removeModal}
         >
-          <RaceInfo races={this.state.selectedRace} />
+          <RaceInfo race={this.state.selectedRace} />
         </Modal>
 
         <div>
           <h1>CHOOSE YOUR RACE:</h1>
           <h6>Click a character race for more information</h6>
           <ul>{this.state.races.map(race =>
-            <li onClick={() => this.selectRaceInfo(race)}>
+            <li key={race} onClick={() => this.selectRaceInfo(race)}>
               {race}
             </li>
           )}
@@ -47,4 +49,10 @@ class CharacterNew extends Component {
   }
 }
 
-export default CharacterNew;
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchRace: name => dispatch(actions.fetchRace(name))
+  };
+};
+
+export default connect(null, mapDispatchToProps)(CharacterNew);

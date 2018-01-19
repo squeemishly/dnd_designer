@@ -1,17 +1,18 @@
 import * as actionTypes from "../actions/types";
 
-const initialState = {}
+const initialState = {};
 
 const characterReducer = (state = initialState, action) => {
-  switch(action.type) {
+  console.log("Action: ", action);
+  switch (action.type) {
     case actionTypes.FETCH_RACE_INFO:
       return {
         ...state,
         race: action.payload
-      }
+      };
     default:
       return state;
   }
-}
+};
 
 export default characterReducer;

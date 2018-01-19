@@ -1,6 +1,7 @@
 const express = require("express");
 const passport = require("passport");
 const cookieSession = require("cookie-session");
+const bodyParser = require('body-parser');
 const environment = process.env.NODE_ENV || 'development';
 const configuration = require('./knexfile')[environment];
 const database = require('knex')(configuration);
@@ -8,6 +9,9 @@ const keys = require("./config/keys")
 require("./services/passport");
 
 const app = express();
+
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 
 app.use(
   cookieSession({
@@ -24,6 +28,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 require("./routes/authRoutes")(app);
+require("./routes/characterRoutes")(app);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT);

@@ -6,13 +6,16 @@ export const fetchUser = () => async dispatch => {
   dispatch({
     type: actionTypes.FETCH_USER,
     payload: res.data
-  })
-}
+  });
+};
 
-export const fetchRace = (name) => async dispatch => {
-  const res = await axios.get(`/api/races/${name}`);
-  dispatch({
-    type: actionTypes.FETCH_RACE_INFO,
-    payload: res.data
-  })
-}
+export const fetchRace = name => async dispatch => {
+  axios.get(`/api/character/race/${name}`)
+    .then(response => {
+      console.log("RACEYYYY: ", response)
+    })
+  // dispatch({
+  //   type: actionTypes.FETCH_RACE_INFO,
+  //   payload: res.data
+  // });
+};

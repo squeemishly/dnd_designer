@@ -7,6 +7,7 @@
   "author": "Benjamin Ross & Kristen Squee Mueller",
   "license": "MIT",
   "dependencies": {
+    "body-parser": "~1.18.2",
     "concurrently": "^3.5.1",
     "cookie-session": "^2.0.0-beta.3",
     "express": "^4.16.2",
