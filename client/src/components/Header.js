@@ -15,10 +15,8 @@ class Header extends Component {
         );
       default:
         return [
-          <li>
-              <a href="/character/new">Create New Character</a>
-            </li>,
-          <li key="1">{this.props.auth.username}</li>,
+          <li key="1">Welcome {this.props.auth.username}</li>,
+          <li><a href="/character/new">New Character</a></li>,
           <li key="2">
             <a href="/api/logout">Logout</a>
           </li>
@@ -32,7 +30,6 @@ class Header extends Component {
         <a className="">DND Designer</a>
         <nav className={classes.Navbar}>
           <ul className={classes.NavbarLinks}>
-            
             {this.renderLoggedInContent()}
           </ul>
         </nav>
