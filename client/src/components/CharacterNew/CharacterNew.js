@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Modal from "../UI/Modal/Modal";
 import Aux from "../../hoc/Aux/Aux";
-import RaceInfo from "../RaceInfo/RaceInfo";
+import RaceInfo from "./RaceInfo/RaceInfo";
 import * as actions from "../../store/actions";
+import classes from "./CharacterNew.css";
 
 class CharacterNew extends Component {
   state = {
@@ -24,6 +25,10 @@ class CharacterNew extends Component {
     });
   };
 
+  selectRace = event => {
+    
+  }
+
   render() {
     return (
       <Aux>
@@ -31,13 +36,20 @@ class CharacterNew extends Component {
           <RaceInfo race={this.state.selectedRace} />
         </Modal>
 
-        <div>
+        <div className={classes.RaceSelectContainer}>
           <h1>CHOOSE YOUR RACE:</h1>
           <h6>Click a character race for more information</h6>
-          <ul>
+          <ul className={classes.RaceList}>
             {this.state.races.map(race => (
-              <li key={race} onClick={() => this.selectRaceInfo(race)}>
-                {race}
+              <li key={race}>
+                <div className={classes.RaceListItem}>
+                  <div className={classes.MoreInformation}onClick={() => this.selectRaceInfo(race)}>
+                    Click for {race} Information
+                  </div>
+                  <button onClick={() => this.selectRace()}>
+                    Choose {race}
+                  </button>
+                </div>
               </li>
             ))}
           </ul>

@@ -18,7 +18,7 @@ class App extends Component {
     return (
       <div>
         <BrowserRouter>
-          <div>
+          <div style={{ marginTop: '90px'}}>
             <Header />
             <Route exact path="/" component={Landing} />
             <Route exact path="/character/new" component={CharacterNew} />
