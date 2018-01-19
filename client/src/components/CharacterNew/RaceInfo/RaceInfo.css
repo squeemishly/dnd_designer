@@ -1,5 +1,7 @@
 .IMG {
   height: 200px;
+  margin: auto;
+  display: block;
 }
 
 .RaceInfoContainer {
