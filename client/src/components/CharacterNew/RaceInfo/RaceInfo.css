@@ -5,7 +5,7 @@
 }
 
 .RaceInfoContainer {
-  background: linear-gradient(135deg, #c06769, #f0f8ff) no-repeat center center fixed;
+  background: linear-gradient(135deg, rgb(104, 100, 100), #ffffff) no-repeat center center fixed;
   display: flex;
   flex-direction: column;
   align-items: center;

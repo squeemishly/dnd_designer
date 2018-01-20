@@ -9,14 +9,14 @@ class Header extends Component {
         return "";
       case true:
         return (
-          <li>
+          <li key="4">
             <a href="/auth/google">Login With Google</a>
           </li>
         );
       default:
         return [
           <li key="1">Welcome {this.props.auth.username}</li>,
-          <li><a href="/character/new">New Character</a></li>,
+          <li key="3"><a href="/character/new">New Character</a></li>,
           <li key="2">
             <a href="/api/logout">Logout</a>
           </li>
