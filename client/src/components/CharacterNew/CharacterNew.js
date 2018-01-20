@@ -15,7 +15,12 @@ class CharacterNew extends Component {
     showModal: false,
     selectedRace: null,
     showRaceSelections: true,
-    showRaceDetails: false
+    showRaceDetails: false,
+    dwarf: {
+      subrace: ["Gray Dwarf", "Hill Dwarf", "Mountain Dwarf"],
+      class: [],
+      background: ["Acolyte", "Barbarian", "Charlatan", "City Watch", "Clan Crafter", "Cloistered", "Courtier", "Criminal", "Custom", "Entertainer", "Faction Agent", "Far Traveler", "Folk Hero", "Guild Artisan", "Haunted One", "Hermit", "Inheritor", "Knight", "Mercenary", "Noble", "Outlander", "Port City", "Sage", "Sailor", "Soldier", "Urban", "Urchin"]
+    },
   };
 
   removeModal = () => {
@@ -62,9 +67,9 @@ class CharacterNew extends Component {
           />
         </div>
         <div className={classes.DropdownsContainer}>
-          <Dropdown selection={'Subrace'}/>
-          <Dropdown selection={'Class'} />
-          <Dropdown selection={'Background'} />
+          <Dropdown selection={'Subrace'} options={this.state.dwarf.subrace} />
+          <Dropdown selection={'Class'} options={this.state.dwarf.class} />
+          <Dropdown selection={'Background'} options={this.state.dwarf.background} />
         </div>
       </div>
     );

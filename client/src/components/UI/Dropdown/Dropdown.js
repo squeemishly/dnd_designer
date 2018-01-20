@@ -4,12 +4,11 @@ import classes from './Dropdown.css'
 const dropdown = (props) => {
     return (
     <div className={classes.DropdownContainer}>
-        <select>
+        <select disabled={props.options.length === 0}>
             <option selected disabled>Choose {props.selection}</option>
-            <option value="volvo">Volvo</option>
-            <option value="saab">Saab</option>
-            <option value="mercedes">Mercedes</option>
-            <option value="audi">Audi</option>
+            {props.options.map(option => {
+                return <option value={option}>{option}</option>
+            })}
         </select>
     </div>
     );
