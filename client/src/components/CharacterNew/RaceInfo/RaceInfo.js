@@ -56,7 +56,7 @@ class RaceInfo extends Component {
           </table>
 
           <div className={classes.RaceDescription}><p>{this.props.charas.character.description}</p></div>
-          <button onClick={() => this.selectRace()}>
+          <button onClick={() => this.props.selectRace()}>
             Choose {this.props.charas.character.name}
           </button>
         </div>

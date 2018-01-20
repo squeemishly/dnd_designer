@@ -16,16 +16,13 @@ class Modal extends Component {
   }
 
   componentWillUpdate() {
-    console.log("Modal Will Update");
+    // console.log("Modal Will Update");
   }
 
   render() {
     return (
       <Aux>
-        <Backdrop
-          show={this.props.show}
-          clicked={this.props.removeModal}
-        />
+        <Backdrop show={this.props.show} clicked={this.props.removeModal} />
         <div
           className={classes.Modal}
           style={{
