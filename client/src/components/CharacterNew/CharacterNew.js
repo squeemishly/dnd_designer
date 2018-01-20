@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Transition from "react-transition-group/Transition";
+
 import Modal from "../UI/Modal/Modal";
 import Aux from "../../hoc/Aux/Aux";
 import RaceInfo from "./RaceInfo/RaceInfo";
+import Dropdown from "../UI/Dropdown/Dropdown";
 import * as actions from "../../store/actions";
 import classes from "./CharacterNew.css";
 
@@ -43,13 +45,27 @@ class CharacterNew extends Component {
 
   renderRaceDetailSelection = () => {
     return (
-      <div>
-        <h1>You have selected: {this.props.charas.character.name}</h1>
-        <img
-          className={classes.IMG}
-          src={this.props.charas.character.image}
-          alt="Character"
-        />
+      <div className={classes.RaceDetailSelectionContainer}>
+        <div className={classes.RaceDetailHeader}>
+          <h1
+            style={{
+              marginRight: "30px",
+              alignSelf: "center"
+            }}
+          >
+            You have selected: {this.props.charas.character.name}
+          </h1>
+          <img
+            className={classes.IMG}
+            src={this.props.charas.character.image}
+            alt="Character"
+          />
+        </div>
+        <div className={classes.DropdownsContainer}>
+          <Dropdown selection={'Subrace'}/>
+          <Dropdown selection={'Class'} />
+          <Dropdown selection={'Background'} />
+        </div>
       </div>
     );
   };
