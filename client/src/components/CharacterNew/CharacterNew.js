@@ -19,8 +19,39 @@ class CharacterNew extends Component {
     dwarf: {
       subrace: ["Gray Dwarf", "Hill Dwarf", "Mountain Dwarf"],
       class: [],
-      background: ["Acolyte", "Barbarian", "Charlatan", "City Watch", "Clan Crafter", "Cloistered", "Courtier", "Criminal", "Custom", "Entertainer", "Faction Agent", "Far Traveler", "Folk Hero", "Guild Artisan", "Haunted One", "Hermit", "Inheritor", "Knight", "Mercenary", "Noble", "Outlander", "Port City", "Sage", "Sailor", "Soldier", "Urban", "Urchin"]
+      background: [
+        "Acolyte",
+        "Barbarian",
+        "Charlatan",
+        "City Watch",
+        "Clan Crafter",
+        "Cloistered",
+        "Courtier",
+        "Criminal",
+        "Custom",
+        "Entertainer",
+        "Faction Agent",
+        "Far Traveler",
+        "Folk Hero",
+        "Guild Artisan",
+        "Haunted One",
+        "Hermit",
+        "Inheritor",
+        "Knight",
+        "Mercenary",
+        "Noble",
+        "Outlander",
+        "Port City",
+        "Sage",
+        "Sailor",
+        "Soldier",
+        "Urban",
+        "Urchin"
+      ]
     },
+    subraceSelection: "",
+    classSelection: "",
+    backgroundSelection: ""
   };
 
   removeModal = () => {
@@ -48,6 +79,27 @@ class CharacterNew extends Component {
     }));
   };
 
+  onDetailSelect = (event, selectionType) => {
+    const value = event.target.value;
+    switch (selectionType) {
+      case "Subrace":
+        this.setState({ subraceSelection: value });
+        break;
+      case "Class":
+        this.setState({ classSelection: value });
+        break;
+      case "Background":
+        this.setState({ backgroundSelection: value });
+        break;
+      default:
+        return null;
+    }
+  };
+
+  raceDetailFinished = () => {
+    console.log("SUBRACE: ", this.state.subraceSelection, "BACKGROUND: ", this.state.backgroundSelection)
+  }
+
   renderRaceDetailSelection = () => {
     return (
       <div className={classes.RaceDetailSelectionContainer}>
@@ -67,9 +119,24 @@ class CharacterNew extends Component {
           />
         </div>
         <div className={classes.DropdownsContainer}>
-          <Dropdown selection={'Subrace'} options={this.state.dwarf.subrace} />
-          <Dropdown selection={'Class'} options={this.state.dwarf.class} />
-          <Dropdown selection={'Background'} options={this.state.dwarf.background} />
+          <Dropdown
+            selection={"Subrace"}
+            options={this.state.dwarf.subrace}
+            changed={event => this.onDetailSelect(event, "Subrace")}
+          />
+          <Dropdown
+            selection={"Class"}
+            options={this.state.dwarf.class}
+            changed={event => this.onDetailSelect(event, "Class")}
+          />
+          <Dropdown
+            selection={"Background"}
+            options={this.state.dwarf.background}
+            changed={event => this.onDetailSelect(event, "Background")}
+          />
+        </div>
+        <div>
+          <button onClick={() => this.raceDetailFinished()}>Next Selection</button>
         </div>
       </div>
     );
