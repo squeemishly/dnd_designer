@@ -1,66 +1,75 @@
-.RaceList {
-  list-style: none;
-  padding: 0;
+.SideBarOpen {
+  animation: openSideBar 1s ease-out forwards;
 }
 
-.RaceList li {
-    cursor: pointer;
+.SideBarClosed {
+  animation: closeSideBar 1s ease-out forwards;
 }
 
-.RaceListItem {
-    font-size: 1.5em;
-    text-align: center;
-    margin: 10px;
-    padding: 15px 50px;
-    border: 1px solid black;
-    box-shadow: 1px 1px 1px black;
+@keyframes openSideBar {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(40%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
-.RaceSelectContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+@keyframes closeSideBar {
+  0% {
+    opacity: 1;
+    transform: translate(0);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translate(40%);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-100%);
+  }
 }
 
-.RaceDetailSelectionContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.CharacterSideBar {
+  position: fixed;
+  width: 280px;
+  max-width: 70%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background-color: white;
+  padding: 32px 16px;
+  box-sizing: border-box;
+  box-shadow: 20px 38px 34px -26px hsla(0, 0%, 0%, 0.8);
 }
 
-.RaceDetailHeader {
-    display: flex;
-    flex-direction: row;
+.Open {
+  transform: translateX(0);
 }
 
-.DropdownsContainer {
-    margin-top: 50px;
-    width: 90%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+.Close {
+    transform: translateX(100)
+}
+
+.SideBarContents {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 30px;
 }
 
 .IMG {
-    height: 200px;
+  height: 150px;
 }
 
-.RaceDetailSelectionContainer button{
-    align-self:center;
-    background:white;
-    padding:1rem 1rem;
-    margin: 150px 1rem;
-    transition:all .5s ease;
-    color:#41403E;
-    font-size:2rem;
-    letter-spacing:1px;
-    outline:none;
-    box-shadow: 20px 38px 34px -26px hsla(0,0%,0%,.2);
-    border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
-    margin-bottom: 10px;
-}
-
-.RaceDetailSelectionContainer button:hover {
-  box-shadow:2px 8px 4px -6px hsla(0,0%,0%,.3);
-  cursor: pointer;
+.CharacterStatsForm {
+    border: 1px solid black;
+    margin-left: 300px;
+    margin-right: 20px;
 }

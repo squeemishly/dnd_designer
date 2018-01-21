@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import classes from "./RaceInfo.css";
 import Aux from "../../../hoc/Aux/Aux";
+import Button from "../../UI/Button/Button";
 
 class RaceInfo extends Component {
   selectRace = event => {};
@@ -24,7 +25,7 @@ class RaceInfo extends Component {
             alt="Character"
           />
           <h2>{this.props.charas.character.alignment}</h2>
-          <table style={{ marginBottom: '10px'}}>
+          <table style={{ marginBottom: "10px" }}>
             <thead>
               <tr>
                 <th>Ability Score</th>
@@ -38,7 +39,7 @@ class RaceInfo extends Component {
               </tr>
             </tbody>
           </table>
-          <table style={{ marginBottom: '10px'}}>
+          <table style={{ marginBottom: "10px" }}>
             <thead>
               <tr>
                 <th>Size</th>
@@ -55,10 +56,12 @@ class RaceInfo extends Component {
             </tbody>
           </table>
 
-          <div className={classes.RaceDescription}><p>{this.props.charas.character.description}</p></div>
-          <button onClick={() => this.props.selectRace()}>
+          <div className={classes.RaceDescription}>
+            <p>{this.props.charas.character.description}</p>
+          </div>
+          <Button clicked={() => this.props.selectRace()}>
             Choose {this.props.charas.character.name}
-          </button>
+          </Button>
         </div>
       );
     }

@@ -2,10 +2,11 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Transition from "react-transition-group/Transition";
 
+import RaceInfo from "./RaceInfo/RaceInfo";
+import RaceSelection from "./RaceSelection/RaceSelection";
+import RaceDetailSelection from "./RaceDetailSelection/RaceDetailSelection";
 import Modal from "../UI/Modal/Modal";
 import Aux from "../../hoc/Aux/Aux";
-import RaceInfo from "./RaceInfo/RaceInfo";
-import Dropdown from "../UI/Dropdown/Dropdown";
 import * as actions from "../../store/actions";
 import classes from "./CharacterNew.css";
 
@@ -16,6 +17,8 @@ class CharacterNew extends Component {
     selectedRace: null,
     showRaceSelections: true,
     showRaceDetails: false,
+    showCharacterStats: false,
+    showCharacterStatsForm: false,
     dwarf: {
       subrace: ["Gray Dwarf", "Hill Dwarf", "Mountain Dwarf"],
       class: [],
@@ -51,7 +54,8 @@ class CharacterNew extends Component {
     },
     subraceSelection: "",
     classSelection: "",
-    backgroundSelection: ""
+    backgroundSelection: "",
+    raceDetailFormIsValid: false
   };
 
   removeModal = () => {
@@ -60,24 +64,45 @@ class CharacterNew extends Component {
 
   selectRaceInfo = race => {
     this.props.fetchRace(race);
-    this.setState({
-      showModal: true,
-      selectedRace: race
-    });
+    this.setState({ showModal: true, selectedRace: race });
   };
 
   selectRace = () => {
-    this.setState(prevState => ({
-      showModal: !prevState.showModal,
-      showRaceSelections: !prevState.showRaceSelections
-    }));
+    this.setState({ showModal: false, showRaceSelections: false });
   };
 
   renderRaceDetails = () => {
-    this.setState(prevState => ({
-      showRaceDetails: !prevState.showRaceDetails
-    }));
+    this.setState({ showRaceDetails: true });
   };
+
+  renderCharacterStats = () => {
+    this.setState({ showCharacterStats: true, showCharacterStatsForm: true });
+  };
+
+  checkRaceDetailValidity(selectionType) {
+    let isValid = true;
+
+    if (this.state.dwarf.subrace.length > 0) {
+      this.state.subraceSelection.length > 0 || selectionType === "Subrace"
+        ? (isValid = true && isValid)
+        : (isValid = false);
+    }
+
+    if (this.state.dwarf.class.length > 0) {
+      this.state.classSelection.length > 0 || selectionType === "Class"
+        ? (isValid = true && isValid)
+        : (isValid = false);
+    }
+
+    if (this.state.dwarf.background.length > 0) {
+      this.state.backgroundSelection.length > 0 ||
+      selectionType === "Background"
+        ? (isValid = true && isValid)
+        : (isValid = false);
+    }
+
+    return isValid;
+  }
 
   onDetailSelect = (event, selectionType) => {
     const value = event.target.value;
@@ -94,52 +119,22 @@ class CharacterNew extends Component {
       default:
         return null;
     }
+
+    const formIsValid = this.checkRaceDetailValidity(selectionType);
+    this.setState({ raceDetailFormIsValid: formIsValid });
   };
 
   raceDetailFinished = () => {
-    console.log("SUBRACE: ", this.state.subraceSelection, "BACKGROUND: ", this.state.backgroundSelection)
-  }
-
-  renderRaceDetailSelection = () => {
-    return (
-      <div className={classes.RaceDetailSelectionContainer}>
-        <div className={classes.RaceDetailHeader}>
-          <h1
-            style={{
-              marginRight: "30px",
-              alignSelf: "center"
-            }}
-          >
-            You have selected: {this.props.charas.character.name}
-          </h1>
-          <img
-            className={classes.IMG}
-            src={this.props.charas.character.image}
-            alt="Character"
-          />
-        </div>
-        <div className={classes.DropdownsContainer}>
-          <Dropdown
-            selection={"Subrace"}
-            options={this.state.dwarf.subrace}
-            changed={event => this.onDetailSelect(event, "Subrace")}
-          />
-          <Dropdown
-            selection={"Class"}
-            options={this.state.dwarf.class}
-            changed={event => this.onDetailSelect(event, "Class")}
-          />
-          <Dropdown
-            selection={"Background"}
-            options={this.state.dwarf.background}
-            changed={event => this.onDetailSelect(event, "Background")}
-          />
-        </div>
-        <div>
-          <button onClick={() => this.raceDetailFinished()}>Next Selection</button>
-        </div>
-      </div>
+    console.log(
+      "SUBRACE: ",
+      this.state.subraceSelection,
+      "CLASS: ",
+      this.state.classSelection,
+      "BACKGROUND: ",
+      this.state.backgroundSelection
     );
+
+    this.setState({ showRaceDetails: false });
   };
 
   render() {
@@ -159,28 +154,11 @@ class CharacterNew extends Component {
           onExited={() => this.renderRaceDetails()}
         >
           {state => (
-            <div
-              className={classes.RaceSelectContainer}
-              style={{
-                transition: "opacity 0.3s ease-out",
-                opacity: state === "exiting" ? 0 : 1
-              }}
-            >
-              <h1>CHOOSE YOUR RACE:</h1>
-              <h4>Click a character race for more information</h4>
-              <ul className={classes.RaceList}>
-                {this.state.races.map(race => (
-                  <li key={race}>
-                    <div
-                      className={classes.RaceListItem}
-                      onClick={() => this.selectRaceInfo(race)}
-                    >
-                      {race}
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <RaceSelection
+              state={state}
+              races={this.state.races}
+              onSelect={race => this.selectRaceInfo(race)}
+            />
           )}
         </Transition>
         <Transition
@@ -188,18 +166,19 @@ class CharacterNew extends Component {
           timeout={100}
           mountOnEnter
           unmountOnExit
+          onExited={() => this.renderCharacterStats()}
         >
           {state => {
-            const duration = 300;
-
             const defaultStyle = {
-              transition: `opacity ${duration}ms ease-in-out`,
+              transition: `opacity 300ms ease-in-out`,
               opacity: 1
             };
 
             const transitionStyles = {
               entering: { opacity: 0 },
-              entered: { opacity: 1 }
+              entered: { opacity: 1 },
+              exiting: { opacity: 1 },
+              exited: { opacity: 0 }
             };
             return (
               <div
@@ -208,7 +187,90 @@ class CharacterNew extends Component {
                   ...transitionStyles[state]
                 }}
               >
-                {this.renderRaceDetailSelection()}
+                <RaceDetailSelection
+                  characterName={this.props.charas.character.name}
+                  characterImage={this.props.charas.character.image}
+                  subraceOptions={this.state.dwarf.subrace}
+                  classOptions={this.state.dwarf.class}
+                  backgroundOptions={this.state.dwarf.background}
+                  dropdownChanged={(event, detailType) =>
+                    this.onDetailSelect(event, detailType)
+                  }
+                  buttonClicked={() => this.raceDetailFinished()}
+                  disableButton={!this.state.raceDetailFormIsValid}
+                />
+              </div>
+            );
+          }}
+        </Transition>
+        <Transition
+          in={this.state.showCharacterStats}
+          timeout={300}
+          mountOnEnter
+          unmountOnExit
+        >
+          {state => {
+            const cssClasses = [
+              classes.CharacterSideBar,
+              state === 'entering' 
+              ? classes.SideBarOpen 
+              : state === 'exiting' 
+              ? classes.SideBarClosed : null
+            ];
+            return (
+              <div>
+                <div className={cssClasses.join(" ")}>
+                  <div className={classes.SideBarContents}>
+                    <img
+                      className={classes.IMG}
+                      src={this.props.charas.character.image}
+                      alt="Character"
+                    />
+                    <h1>Race</h1>
+                    <h1>{this.props.charas.character.name}</h1>
+                    <h2>SubRace</h2>
+                    <h2>{this.state.subraceSelection}</h2>
+                    <h2>Class</h2>
+                    <h2>{this.state.classSelection}</h2>
+                    <h2>Background</h2>
+                    <h2>{this.state.backgroundSelection}</h2>
+                  </div>
+                </div>
+              </div>
+            );
+          }}
+        </Transition>
+        <Transition
+          in={this.state.showCharacterStatsForm}
+          timeout={100}
+          mountOnEnter
+          unmountOnExit
+        >
+          {state => {
+            const defaultStyle = {
+              transition: `opacity 400ms ease-in-out`,
+              opacity: 1
+            };
+
+            const transitionStyles = {
+              entering: { opacity: 0 },
+              entered: { opacity: 1 }
+            };
+            const cssClasses = [
+              classes.CharacterStatsForm
+            ];
+            return (
+              <div
+                style={{
+                  ...defaultStyle,
+                  ...transitionStyles[state]
+                }}
+              >
+                <div className={cssClasses.join(" ")}>
+                  <div>
+                    STATS FORM
+                  </div>
+                </div>
               </div>
             );
           }}
