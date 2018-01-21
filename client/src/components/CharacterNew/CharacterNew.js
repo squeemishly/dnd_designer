@@ -8,7 +8,6 @@ import RaceDetailSelection from "./RaceDetailSelection/RaceDetailSelection";
 import Modal from "../UI/Modal/Modal";
 import Aux from "../../hoc/Aux/Aux";
 import * as actions from "../../store/actions";
-import classes from "./CharacterNew.css";
 
 class CharacterNew extends Component {
   state = {
@@ -17,6 +16,7 @@ class CharacterNew extends Component {
     selectedRace: null,
     showRaceSelections: true,
     showRaceDetails: false,
+    showCharacterStats: false,
     dwarf: {
       subrace: ["Gray Dwarf", "Hill Dwarf", "Mountain Dwarf"],
       class: [],
@@ -61,25 +61,20 @@ class CharacterNew extends Component {
   };
 
   selectRaceInfo = race => {
-    console.log("RACE: ", race);
     this.props.fetchRace(race);
-    this.setState({
-      showModal: true,
-      selectedRace: race
-    });
+    this.setState({ showModal: true, selectedRace: race });
   };
 
   selectRace = () => {
-    this.setState(prevState => ({
-      showModal: !prevState.showModal,
-      showRaceSelections: !prevState.showRaceSelections
-    }));
+    this.setState({ showModal: false, showRaceSelections: false });
   };
 
   renderRaceDetails = () => {
-    this.setState(prevState => ({
-      showRaceDetails: !prevState.showRaceDetails
-    }));
+    this.setState({ showRaceDetails: true });
+  };
+
+  renderCharacterStats = () => {
+      this.setState({ showCharacterStats: true });
   };
 
   checkRaceDetailValidity(selectionType) {
@@ -136,6 +131,8 @@ class CharacterNew extends Component {
       "BACKGROUND: ",
       this.state.backgroundSelection
     );
+
+    this.setState({ showRaceDetails: false });
   };
 
   render() {
@@ -167,6 +164,48 @@ class CharacterNew extends Component {
           timeout={100}
           mountOnEnter
           unmountOnExit
+          onExited={() => this.renderCharacterStats()}
+        >
+          {state => {
+            const defaultStyle = {
+              transition: `opacity 300ms ease-in-out`,
+              opacity: 1
+            };
+
+            const transitionStyles = {
+              entering: { opacity: 0 },
+              entered: { opacity: 1 },
+              exiting: { opacity: 1 },
+              exited: { opacity: 0 }
+            };
+            return (
+              <div
+                style={{
+                  ...defaultStyle,
+                  ...transitionStyles[state]
+                }}
+              >
+                <RaceDetailSelection
+                  characterName={this.props.charas.character.name}
+                  characterImage={this.props.charas.character.image}
+                  subraceOptions={this.state.dwarf.subrace}
+                  classOptions={this.state.dwarf.class}
+                  backgroundOptions={this.state.dwarf.background}
+                  dropdownChanged={(event, detailType) =>
+                    this.onDetailSelect(event, detailType)
+                  }
+                  buttonClicked={() => this.raceDetailFinished()}
+                  disableButton={!this.state.raceDetailFormIsValid}
+                />
+              </div>
+            );
+          }}
+        </Transition>
+        <Transition
+          in={this.state.showCharacterStats}
+          timeout={100}
+          mountOnEnter
+          unmountOnExit
         >
           {state => {
             const duration = 300;
@@ -178,7 +217,9 @@ class CharacterNew extends Component {
 
             const transitionStyles = {
               entering: { opacity: 0 },
-              entered: { opacity: 1 }
+              entered: { opacity: 1 },
+              exiting: { opacity: 1 },
+              exited: { opacity: 0 }
             };
             return (
               <div
@@ -187,20 +228,14 @@ class CharacterNew extends Component {
                   ...transitionStyles[state]
                 }}
               >
-                <RaceDetailSelection 
-                  characterName={this.props.charas.character.name}
-                  characterImage={this.props.charas.character.image}
-                  subraceOptions={this.state.dwarf.subrace}
-                  classOptions={this.state.dwarf.class}
-                  backgroundOptions={this.state.dwarf.background}
-                  dropdownChanged={(event, detailType) => this.onDetailSelect(event, detailType)}
-                  buttonClicked={() => this.raceDetailFinished()}
-                  disableButton={!this.state.raceDetailFormIsValid}
-                />
+                <div>
+                  CHAR STATS
+                </div>
               </div>
             );
           }}
         </Transition>
+        
       </Aux>
     );
   }
