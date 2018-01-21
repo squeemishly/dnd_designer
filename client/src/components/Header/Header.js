@@ -18,7 +18,7 @@ class Header extends Component {
         return [
           <li key="1">Welcome {this.props.auth.username}</li>,
           <li key="4">
-            <Link to="/character/list">Character List</Link>
+            <a href="/character/list">Character List</a>
           </li>,
           <li key="3">
             <Link to="/character/new">New Character</Link>

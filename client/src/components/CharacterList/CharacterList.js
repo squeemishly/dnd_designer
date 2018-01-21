@@ -74,7 +74,7 @@ class CharacterList extends Component {
                   ...transitionStyles[state]
                 }}
               >
-                <div className={classes.CharacterListContainer}>
+                <div>
                   <CharacterSheet character={this.state.selectedCharacter} />
                 </div>
               </div>
