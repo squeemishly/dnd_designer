@@ -8,6 +8,7 @@ import RaceDetailSelection from "./RaceDetailSelection/RaceDetailSelection";
 import Modal from "../UI/Modal/Modal";
 import Aux from "../../hoc/Aux/Aux";
 import * as actions from "../../store/actions";
+import classes from "./CharacterNew.css";
 
 class CharacterNew extends Component {
   state = {
@@ -17,6 +18,7 @@ class CharacterNew extends Component {
     showRaceSelections: true,
     showRaceDetails: false,
     showCharacterStats: false,
+    showCharacterStatsForm: false,
     dwarf: {
       subrace: ["Gray Dwarf", "Hill Dwarf", "Mountain Dwarf"],
       class: [],
@@ -74,7 +76,7 @@ class CharacterNew extends Component {
   };
 
   renderCharacterStats = () => {
-      this.setState({ showCharacterStats: true });
+    this.setState({ showCharacterStats: true, showCharacterStatsForm: true });
   };
 
   checkRaceDetailValidity(selectionType) {
@@ -203,24 +205,26 @@ class CharacterNew extends Component {
         </Transition>
         <Transition
           in={this.state.showCharacterStats}
-          timeout={100}
+          timeout={300}
           mountOnEnter
           unmountOnExit
+          onEntering={() => console.log("ENTERING")}
+          onEntered={() => console.log("ENTERED")}
         >
           {state => {
-            const duration = 300;
-
             const defaultStyle = {
-              transition: `opacity ${duration}ms ease-in-out`,
+              transition: `opacity 500ms ease-in-out`,
               opacity: 1
             };
 
             const transitionStyles = {
-              entering: { opacity: 0 },
-              entered: { opacity: 1 },
-              exiting: { opacity: 1 },
-              exited: { opacity: 0 }
+              entering: classes.SideBarOpen,
+              entered: classes.Open
             };
+            const cssClasses = [
+              classes.CharacterSideBar,
+              state === 'entering' ? classes.SideBarOpen : null
+            ];
             return (
               <div
                 style={{
@@ -228,14 +232,62 @@ class CharacterNew extends Component {
                   ...transitionStyles[state]
                 }}
               >
-                <div>
-                  CHAR STATS
+                <div className={cssClasses.join(" ")}>
+                  <div className={classes.SideBarContents}>
+                    <img
+                      className={classes.IMG}
+                      src={this.props.charas.character.image}
+                      alt="Character"
+                    />
+                    <h1>Race</h1>
+                    <h1>{this.props.charas.character.name}</h1>
+                    <h2>SubRace</h2>
+                    <h2>{this.state.subraceSelection}</h2>
+                    <h2>Class</h2>
+                    <h2>{this.state.classSelection}</h2>
+                    <h2>Background</h2>
+                    <h2>{this.state.backgroundSelection}</h2>
+                  </div>
                 </div>
               </div>
             );
           }}
         </Transition>
-        
+        <Transition
+          in={this.state.showCharacterStatsForm}
+          timeout={100}
+          mountOnEnter
+          unmountOnExit
+        >
+          {state => {
+            const defaultStyle = {
+              transition: `opacity 400ms ease-in-out`,
+              opacity: 1
+            };
+
+            const transitionStyles = {
+              entering: { opacity: 0 },
+              entered: { opacity: 1 }
+            };
+            const cssClasses = [
+              classes.CharacterStatsForm
+            ];
+            return (
+              <div
+                style={{
+                  ...defaultStyle,
+                  ...transitionStyles[state]
+                }}
+              >
+                <div className={cssClasses.join(" ")}>
+                  <div>
+                    STATS FORM
+                  </div>
+                </div>
+              </div>
+            );
+          }}
+        </Transition>
       </Aux>
     );
   }
