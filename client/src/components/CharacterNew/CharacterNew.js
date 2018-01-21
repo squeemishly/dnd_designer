@@ -2,12 +2,11 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Transition from "react-transition-group/Transition";
 
-import Modal from "../UI/Modal/Modal";
-import Aux from "../../hoc/Aux/Aux";
 import RaceInfo from "./RaceInfo/RaceInfo";
 import RaceSelection from "./RaceSelection/RaceSelection";
-import Dropdown from "../UI/Dropdown/Dropdown";
-import Button from "../UI/Button/Button";
+import RaceDetailSelection from "./RaceDetailSelection/RaceDetailSelection";
+import Modal from "../UI/Modal/Modal";
+import Aux from "../../hoc/Aux/Aux";
 import * as actions from "../../store/actions";
 import classes from "./CharacterNew.css";
 
@@ -62,7 +61,7 @@ class CharacterNew extends Component {
   };
 
   selectRaceInfo = race => {
-    console.log("RACE: ", race)
+    console.log("RACE: ", race);
     this.props.fetchRace(race);
     this.setState({
       showModal: true,
@@ -139,53 +138,6 @@ class CharacterNew extends Component {
     );
   };
 
-  renderRaceDetailSelection = () => {
-    return (
-      <div className={classes.RaceDetailSelectionContainer}>
-        <div className={classes.RaceDetailHeader}>
-          <h1
-            style={{
-              marginRight: "30px",
-              alignSelf: "center"
-            }}
-          >
-            You have selected: {this.props.charas.character.name}
-          </h1>
-          <img
-            className={classes.IMG}
-            src={this.props.charas.character.image}
-            alt="Character"
-          />
-        </div>
-        <div className={classes.DropdownsContainer}>
-          <Dropdown
-            selection={"Subrace"}
-            options={this.state.dwarf.subrace}
-            changed={event => this.onDetailSelect(event, "Subrace")}
-          />
-          <Dropdown
-            selection={"Class"}
-            options={this.state.dwarf.class}
-            changed={event => this.onDetailSelect(event, "Class")}
-          />
-          <Dropdown
-            selection={"Background"}
-            options={this.state.dwarf.background}
-            changed={event => this.onDetailSelect(event, "Background")}
-          />
-        </div>
-        <div>
-          <Button
-            clicked={() => this.raceDetailFinished()}
-            disabled={!this.state.raceDetailFormIsValid}
-          >
-            Next Selection
-          </Button>
-        </div>
-      </div>
-    );
-  };
-
   render() {
     return (
       <Aux>
@@ -206,7 +158,7 @@ class CharacterNew extends Component {
             <RaceSelection
               state={state}
               races={this.state.races}
-              onSelect={(race) => this.selectRaceInfo(race)}
+              onSelect={race => this.selectRaceInfo(race)}
             />
           )}
         </Transition>
@@ -235,7 +187,16 @@ class CharacterNew extends Component {
                   ...transitionStyles[state]
                 }}
               >
-                {this.renderRaceDetailSelection()}
+                <RaceDetailSelection 
+                  characterName={this.props.charas.character.name}
+                  characterImage={this.props.charas.character.image}
+                  subraceOptions={this.state.dwarf.subrace}
+                  classOptions={this.state.dwarf.class}
+                  backgroundOptions={this.state.dwarf.background}
+                  dropdownChanged={(event, detailType) => this.onDetailSelect(event, detailType)}
+                  buttonClicked={() => this.raceDetailFinished()}
+                  disableButton={!this.state.raceDetailFormIsValid}
+                />
               </div>
             );
           }}
