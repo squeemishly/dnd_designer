@@ -208,30 +208,17 @@ class CharacterNew extends Component {
           timeout={300}
           mountOnEnter
           unmountOnExit
-          onEntering={() => console.log("ENTERING")}
-          onEntered={() => console.log("ENTERED")}
         >
           {state => {
-            const defaultStyle = {
-              transition: `opacity 500ms ease-in-out`,
-              opacity: 1
-            };
-
-            const transitionStyles = {
-              entering: classes.SideBarOpen,
-              entered: classes.Open
-            };
             const cssClasses = [
               classes.CharacterSideBar,
-              state === 'entering' ? classes.SideBarOpen : null
+              state === 'entering' 
+              ? classes.SideBarOpen 
+              : state === 'exiting' 
+              ? classes.SideBarClosed : null
             ];
             return (
-              <div
-                style={{
-                  ...defaultStyle,
-                  ...transitionStyles[state]
-                }}
-              >
+              <div>
                 <div className={cssClasses.join(" ")}>
                   <div className={classes.SideBarContents}>
                     <img
