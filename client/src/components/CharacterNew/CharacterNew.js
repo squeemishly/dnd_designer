@@ -6,6 +6,7 @@ import Modal from "../UI/Modal/Modal";
 import Aux from "../../hoc/Aux/Aux";
 import RaceInfo from "./RaceInfo/RaceInfo";
 import Dropdown from "../UI/Dropdown/Dropdown";
+import Button from "../UI/Button/Button";
 import * as actions from "../../store/actions";
 import classes from "./CharacterNew.css";
 
@@ -51,7 +52,8 @@ class CharacterNew extends Component {
     },
     subraceSelection: "",
     classSelection: "",
-    backgroundSelection: ""
+    backgroundSelection: "",
+    raceDetailFormIsValid: false
   };
 
   removeModal = () => {
@@ -79,6 +81,34 @@ class CharacterNew extends Component {
     }));
   };
 
+  checkRaceDetailValidity(selectionType) {
+    let isValid = true;
+
+    if (this.state.dwarf.subrace.length > 0) {
+      console.log(this.state.subraceSelection.length > 0);
+      this.state.subraceSelection.length > 0 || selectionType === "Subrace"
+        ? (isValid = true && isValid)
+        : (isValid = false);
+    }
+
+    if (this.state.dwarf.class.length > 0) {
+      this.state.classSelection.length > 0 || selectionType === "Class"
+        ? (isValid = true && isValid)
+        : (isValid = false);
+    }
+
+    if (this.state.dwarf.background.length > 0) {
+      this.state.backgroundSelection.length > 0 ||
+      selectionType === "Background"
+        ? (isValid = true && isValid)
+        : (isValid = false);
+    }
+
+    console.log("IS VALID: ", isValid);
+
+    return isValid;
+  }
+
   onDetailSelect = (event, selectionType) => {
     const value = event.target.value;
     switch (selectionType) {
@@ -94,11 +124,21 @@ class CharacterNew extends Component {
       default:
         return null;
     }
+
+    const formIsValid = this.checkRaceDetailValidity(selectionType);
+    this.setState({ raceDetailFormIsValid: formIsValid });
   };
 
   raceDetailFinished = () => {
-    console.log("SUBRACE: ", this.state.subraceSelection, "BACKGROUND: ", this.state.backgroundSelection)
-  }
+    console.log(
+      "SUBRACE: ",
+      this.state.subraceSelection,
+      "CLASS: ",
+      this.state.classSelection,
+      "BACKGROUND: ",
+      this.state.backgroundSelection
+    );
+  };
 
   renderRaceDetailSelection = () => {
     return (
@@ -136,7 +176,12 @@ class CharacterNew extends Component {
           />
         </div>
         <div>
-          <button onClick={() => this.raceDetailFinished()}>Next Selection</button>
+          <Button
+            clicked={() => this.raceDetailFinished()}
+            disabled={!this.state.raceDetailFormIsValid}
+          >
+            Next Selection
+          </Button>
         </div>
       </div>
     );
