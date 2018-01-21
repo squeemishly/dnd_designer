@@ -5,6 +5,7 @@ import Transition from "react-transition-group/Transition";
 import Modal from "../UI/Modal/Modal";
 import Aux from "../../hoc/Aux/Aux";
 import RaceInfo from "./RaceInfo/RaceInfo";
+import RaceSelection from "./RaceSelection/RaceSelection";
 import Dropdown from "../UI/Dropdown/Dropdown";
 import Button from "../UI/Button/Button";
 import * as actions from "../../store/actions";
@@ -61,6 +62,7 @@ class CharacterNew extends Component {
   };
 
   selectRaceInfo = race => {
+    console.log("RACE: ", race)
     this.props.fetchRace(race);
     this.setState({
       showModal: true,
@@ -85,7 +87,6 @@ class CharacterNew extends Component {
     let isValid = true;
 
     if (this.state.dwarf.subrace.length > 0) {
-      console.log(this.state.subraceSelection.length > 0);
       this.state.subraceSelection.length > 0 || selectionType === "Subrace"
         ? (isValid = true && isValid)
         : (isValid = false);
@@ -103,8 +104,6 @@ class CharacterNew extends Component {
         ? (isValid = true && isValid)
         : (isValid = false);
     }
-
-    console.log("IS VALID: ", isValid);
 
     return isValid;
   }
@@ -204,28 +203,11 @@ class CharacterNew extends Component {
           onExited={() => this.renderRaceDetails()}
         >
           {state => (
-            <div
-              className={classes.RaceSelectContainer}
-              style={{
-                transition: "opacity 0.3s ease-out",
-                opacity: state === "exiting" ? 0 : 1
-              }}
-            >
-              <h1>CHOOSE YOUR RACE:</h1>
-              <h4>Click a character race for more information</h4>
-              <ul className={classes.RaceList}>
-                {this.state.races.map(race => (
-                  <li key={race}>
-                    <div
-                      className={classes.RaceListItem}
-                      onClick={() => this.selectRaceInfo(race)}
-                    >
-                      {race}
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <RaceSelection
+              state={state}
+              races={this.state.races}
+              onSelect={(race) => this.selectRaceInfo(race)}
+            />
           )}
         </Transition>
         <Transition
