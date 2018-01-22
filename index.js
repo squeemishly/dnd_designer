@@ -1,11 +1,11 @@
 const express = require("express");
-const passport = require("passport");
-const cookieSession = require("cookie-session");
-const bodyParser = require("body-parser");
 const environment = process.env.NODE_ENV || "development";
 const configuration = require("./knexfile")[environment];
 const database = require("knex")(configuration);
 const keys = require("./config/keys");
+const passport = require("passport");
+const cookieSession = require("cookie-session");
+const bodyParser = require("body-parser");
 require("./services/passport");
 
 const app = express();

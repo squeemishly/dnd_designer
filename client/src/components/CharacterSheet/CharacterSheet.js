@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import classes from './CharacterSheet.css'
+import classes from "./CharacterSheet.css";
 
 class CharacterSheet extends Component {
   render() {
