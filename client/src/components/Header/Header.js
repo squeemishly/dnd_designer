@@ -16,7 +16,12 @@ class Header extends Component {
       default:
         return [
           <li key="1">Welcome {this.props.auth.username}</li>,
-          <li key="3"><a href="/character/new">New Character</a></li>,
+          <li key="4">
+            <a href="/character/list">Character List</a>
+          </li>,
+          <li key="3">
+            <a href="/character/new">New Character</a>
+          </li>,
           <li key="2">
             <a href="/api/logout">Logout</a>
           </li>
