@@ -53,7 +53,6 @@ class CharacterList extends Component {
           timeout={100}
           mountOnEnter
           unmountOnExit
-          onExited={() => this.renderCharacterSheet()}
         >
           {state => {
             const defaultStyle = {
