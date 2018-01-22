@@ -1,5 +1,5 @@
 exports.seed = function(knex, Promise) {
-  return knex.raw("TRUNCATE races RESTART IDENTITY").then(function() {
+  return knex.raw("TRUNCATE TABLE races, subraces CASCADE").then(function() {
     return Promise.all([
       knex.raw(
         "INSERT INTO races (name, image, ability_score_increase, max_age, size, height, avg_weight, speed, alignment, dark_vision, language, description, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
