@@ -6,6 +6,11 @@ const keys = require("./config/keys");
 const passport = require("passport");
 const cookieSession = require("cookie-session");
 const bodyParser = require("body-parser");
+
+const environment = process.env.NODE_ENV || "development";
+const configuration = require("./knexfile")[environment];
+const database = require("knex")(configuration);
+const keys = require("./config/keys");
 require("./services/passport");
 
 const app = express();
