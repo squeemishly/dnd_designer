@@ -2,33 +2,17 @@ const environment = process.env.NODE_ENV || "development";
 const configuration = require("../../../knexfile")[environment];
 const database = require("knex")(configuration);
 
-const Character = require("../../../lib/models/Character")
+const Character = require("../../../lib/models/Character");
 
+const find = async (race) =>
+  await Character.queryRace(race).then(r => r.id);
 
-exports.seed = function(knex, Promise) {
-  const dwarf = () => {
-    const data = { id: null }
-    Character.queryRace("Dwarf")
-    .then(res => {
-      Object.assign(data, data.id, res.id)
-    })
-
-    return data
-  }
-  // const find = (creature) => {
-  //   return Character.queryRace(creature)
-  //   .then(creature => creature.id)
-  // }
-  //
-  // const dwarf = Promise.resolve(find("Dwarf"))
-  console.log(dwarf())
-
-  return knex.raw("TRUNCATE subraces RESTART IDENTITY").then(function() {
-    return Promise.all([
-      knex.raw(
+exports.seed = async function(knex, Promise) {
+  return Promise.all([
+    knex.raw(
         "INSERT INTO subraces (race_id, name, ability_score_increase, features, created_at) VALUES (?, ?, ?, ?, ?)",
         [
-          1,
+          await find("Dwarf"),
           "Hill Dwarf",
           "WIS+1",
           "Dwarven Toughness",
@@ -38,7 +22,7 @@ exports.seed = function(knex, Promise) {
       knex.raw(
         "INSERT INTO subraces (race_id, name, ability_score_increase, features, created_at) VALUES (?, ?, ?, ?, ?)",
         [
-          1,
+          await find("Dwarf"),
           "Mountain Dwarf",
           "STR+2",
           "Dwarven Armor Training",
@@ -48,7 +32,7 @@ exports.seed = function(knex, Promise) {
       knex.raw(
         "INSERT INTO subraces (race_id, name, ability_score_increase, features, created_at) VALUES (?, ?, ?, ?, ?)",
         [
-          2,
+          await find("Elf"),
           "High Elf",
           "INT+1",
           "Elven Weapon Training, Cantrip, Extra Language",
@@ -58,7 +42,7 @@ exports.seed = function(knex, Promise) {
       knex.raw(
         "INSERT INTO subraces (race_id, name, ability_score_increase, features, created_at) VALUES (?, ?, ?, ?, ?)",
         [
-          2,
+          await find("Elf"),
           "Wood Elf",
           "WIS+1",
           "Elven Weapon Training, Fleet of Foot, Mask of the Wild",
@@ -68,7 +52,7 @@ exports.seed = function(knex, Promise) {
       knex.raw(
         "INSERT INTO subraces (race_id, name, ability_score_increase, features, created_at) VALUES (?, ?, ?, ?, ?)",
         [
-          2,
+          await find("Elf"),
           "Drow Elf",
           "CHA+1",
           "Superior Darkvision, Sunlight Sensitivity, Drow Magic, Drow Weapon Training",
@@ -78,7 +62,7 @@ exports.seed = function(knex, Promise) {
       knex.raw(
         "INSERT INTO subraces (race_id, name, ability_score_increase, features, created_at) VALUES (?, ?, ?, ?, ?)",
         [
-          3,
+          await find("Halfling"),
           "Lightfoot",
           "CHA+1",
           "Naturally Stealthy",
@@ -88,13 +72,12 @@ exports.seed = function(knex, Promise) {
       knex.raw(
         "INSERT INTO subraces (race_id, name, ability_score_increase, features, created_at) VALUES (?, ?, ?, ?, ?)",
         [
-          3,
+          await find("Halfling"),
           "Stout",
           "CON+1",
           "Stout Resilience",
           new Date()
         ]
       )
-    ]);
-  });
-};
+  ]);
+}
