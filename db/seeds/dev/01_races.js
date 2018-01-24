@@ -16,11 +16,7 @@ exports.seed = function(knex, Promise) {
           true,
           "Common, Dwarvish",
           "Dwarven Resilience, Dwarven Combat Training, Tool Proficiency, Stonecunning, Subrace",
-          "Dwarves are short and solidly built. They live mostly in hills and mountains to be close to the stone they love. They tend to be cunning craftsmen of stone and metal.\
-          \
-          Because dwarves are a long lived race, they tend to view time differently than humans.\
-          \
-          Clans",
+          "Dwarves are short and solidly built. They live mostly in hills and mountains to be close to the stone they love. They tend to be cunning craftsmen of stone and metal."
           new Date()
         ]
       ),
@@ -39,11 +35,7 @@ exports.seed = function(knex, Promise) {
           true,
           "Common, Elvish",
           "Keen Senses, Fey Ancestry, Trance, Subrace",
-          "Magical people\
-          \
-          Understanding of time\
-          \
-          Wanderlust",
+          "Elves are an inherently magical people. They tend to be curious and adventurous, seeking a way to keep their time interesting over their incredibly long lives."
           new Date()
         ]
       ),
@@ -62,7 +54,7 @@ exports.seed = function(knex, Promise) {
           false,
           "Common, Halfling",
           "Lucky, Halfling Nimbleness, Subrace",
-          "",
+          "Halflings are short, good natured people. They love their friends and family and love sharing their homes with them. They rarely want more out of life than a warm home, a comfortable bed, and some good company.",
           new Date()
         ]
       ),
@@ -81,7 +73,7 @@ exports.seed = function(knex, Promise) {
           false,
           "Common, +1 Language of your choice",
           "",
-          "",
+          "There is a broad variety in human culture and expectations. Humans tend to be adaptable, which leads to a quite varied existance amongst all the groups and cities. They do tend to be the most ambitious of the races, seeking out fame, glory, power, and above all, wealth.",
           new Date()
         ]
       ),
@@ -100,7 +92,7 @@ exports.seed = function(knex, Promise) {
           false,
           "Common, Draconic",
           "Draconic Ancestry, Breath Weapon, Damage Resistance",
-          "",
+          "Dragonborn are proud and strong. They are decendants of dragons, but with humanoid appearance. Dragonborn believe in the clan they belong to above all else, and they will do everything to ensure the success and longevity of that clan.",
           new Date()
         ]
       ),
@@ -119,7 +111,7 @@ exports.seed = function(knex, Promise) {
           true,
           "Common, Gnomish",
           "Gnome Cunning, Subrace",
-          "",
+          "Gnomes are joyful, happy creatures. They love to explore and figure out how things work. They are delighted by everything, including their own existance. They love surrounding themselves by bright happy things hearing tales of harrowing adventures.",
           new Date()
         ]
       ),
@@ -138,7 +130,7 @@ exports.seed = function(knex, Promise) {
           true,
           "Common, Elvish, +1 Language of your choice",
           "Fey Ancestry",
-          "",
+          "Half Elves are an intersection between their Human and Elven parentage. They don't look quite like a human, they don't look quite elven. They live longer than humans but not as long as elves. They tend to live in between cultures, travelling from city to city and meeting people around the world. Due to their heritage, they have a broader understanding of how people work, so they tend to be good negotiators and peace makers.",
           new Date()
         ]
       ),
@@ -157,7 +149,7 @@ exports.seed = function(knex, Promise) {
           true,
           "Common, Orc",
           "Menacing, Relentless Endurance, Savage Attacks",
-          "",
+          "Desendants of Humans and Orcs, Half Orcs generally maintain the brutality of their Orc parents but temper it with the intellegence and adaptability of their Human parent. Half Orcs experience emotion more deeply than other races. They'll laugh the loudest, drink the most, dance the wildest. And when rage sets in, they feel a fire in their bodies to let it out.",
           new Date()
         ]
       ),
@@ -176,7 +168,7 @@ exports.seed = function(knex, Promise) {
           true,
           "Common, Infernal",
           "Hellish Resistance, Infernal Legacy",
-          "",
+          "Tieflings are the product of a Human pact with Asmodeus the infernal overlord of the Nine Hells. They look like demons which leads the other races to fear them. Because of the treatment Tieflings tend to receive, they tend not to trust the other races either. But once someone has proven themselves a Tiefling's friend, that Tiefling will be a loyal ally forever.",
           new Date()
         ]
       )
