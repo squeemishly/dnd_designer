@@ -4,7 +4,7 @@ exports.up = function(knex, Promise) {
       race_id INTEGER REFERENCES races(id) ON DELETE CASCADE,
       name TEXT,
       ability_score_increase TEXT,
-      features TEXT,
+      traits TEXT,
       created_at TIMESTAMP
     )`
     return knex.raw(createQuery)
