@@ -16,7 +16,7 @@ exports.seed = function(knex, Promise) {
           true,
           "Common, Dwarvish",
           "Dwarven Resilience, Dwarven Combat Training, Tool Proficiency, Stonecunning, Subrace",
-          "Dwarves are short and solidly built. They live mostly in hills and mountains to be close to the stone they love. They tend to be cunning craftsmen of stone and metal."
+          "Dwarves are short and solidly built. They live mostly in hills and mountains to be close to the stone they love. They tend to be cunning craftsmen of stone and metal.",
           new Date()
         ]
       ),
@@ -35,7 +35,7 @@ exports.seed = function(knex, Promise) {
           true,
           "Common, Elvish",
           "Keen Senses, Fey Ancestry, Trance, Subrace",
-          "Elves are an inherently magical people. They tend to be curious and adventurous, seeking a way to keep their time interesting over their incredibly long lives."
+          "Elves are an inherently magical people. They tend to be curious and adventurous, seeking a way to keep their time interesting over their incredibly long lives.",
           new Date()
         ]
       ),
