@@ -7,7 +7,23 @@ import Button from "../../UI/Button/Button";
 class RaceInfo extends Component {
   selectRace = event => {};
 
+
   render() {
+    const RaceTraits = (props) => {
+      if (props.additionalTraits) {
+        return  (
+          <div className={classes.RaceAdditionalTraits}>
+            <h3>Additional Traits</h3>
+            <p>{props.additionalTraits}</p>
+          </div>
+        )
+      } else {
+        return (
+          <div></div>
+        )
+      }
+    }
+
     let raceInfo = <h1>No Race Selected</h1>;
 
     if (this.props.charas.character) {
@@ -55,6 +71,9 @@ class RaceInfo extends Component {
               </tr>
             </tbody>
           </table>
+
+          <RaceTraits additionalTraits={this.props.charas.character.additional_traits}/>
+
 
           <div className={classes.RaceDescription}>
             <p>{this.props.charas.character.description}</p>
