@@ -12,7 +12,7 @@ import classes from "./CharacterNew.css";
 
 class CharacterNew extends Component {
   state = {
-    races: ["Dwarf", "Elf", "Halfling"],
+    races: ["Dwarf", "Elf", "Halfling", "Human", "Dragonborn", "Half Elf", "Gnome", "Tiefling", "Half Orc"],
     showModal: false,
     selectedRace: null,
     showRaceSelections: true,
@@ -212,9 +212,9 @@ class CharacterNew extends Component {
           {state => {
             const cssClasses = [
               classes.CharacterSideBar,
-              state === 'entering' 
-              ? classes.SideBarOpen 
-              : state === 'exiting' 
+              state === 'entering'
+              ? classes.SideBarOpen
+              : state === 'exiting'
               ? classes.SideBarClosed : null
             ];
             return (

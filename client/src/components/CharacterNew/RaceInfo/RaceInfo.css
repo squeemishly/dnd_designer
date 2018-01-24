@@ -31,7 +31,7 @@ td {
   align-content: center;
 }
 
-.RaceDescription {
+.RaceAdditionalTraits, .RaceDescription {
   border: 1px solid black;
   box-shadow: 1px 1px 1px black;
   padding: 3px 10px;
