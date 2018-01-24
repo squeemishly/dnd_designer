@@ -11,13 +11,14 @@ exports.up = function(knex, Promise) {
       speed INTEGER,
       alignment TEXT,
       dark_vision BOOLEAN DEFAULT FALSE,
-      language TEXT,
+      languages TEXT,
+      additional_traits TEXT,
       description TEXT,
       created_at TIMESTAMP
     )`
     return knex.raw(createQuery)
   }
-  
+
   exports.down = function(knex, Promise) {
     let dropQuery = `DROP TABLE races`
     return knex.raw(dropQuery)
