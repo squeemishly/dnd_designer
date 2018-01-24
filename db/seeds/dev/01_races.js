@@ -2,7 +2,7 @@ exports.seed = function(knex, Promise) {
   return knex.raw("TRUNCATE TABLE races, subraces CASCADE").then(function() {
     return Promise.all([
       knex.raw(
-        "INSERT INTO races (name, image, ability_score_increase, max_age, size, height, avg_weight, speed, alignment, dark_vision, languages, additional_race_features, description, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "INSERT INTO races (name, image, ability_score_increase, max_age, size, height, avg_weight, speed, alignment, dark_vision, languages, additional_traits, description, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         [
           "Dwarf",
           "http://media.wizards.com/images/dnd/newtodnd/NEW_TO_DD_Races_Dwarf.png",
@@ -25,7 +25,7 @@ exports.seed = function(knex, Promise) {
         ]
       ),
       knex.raw(
-        "INSERT INTO races (name, image, ability_score_increase, max_age, size, height, avg_weight, speed, alignment, dark_vision, languages, additional_race_features, description, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "INSERT INTO races (name, image, ability_score_increase, max_age, size, height, avg_weight, speed, alignment, dark_vision, languages, additional_traits, description, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         [
           "Elf",
           "https://vignette.wikia.nocookie.net/dmc-dd/images/d/de/Sun_elf.jpg/revision/latest/scale-to-width-down/252?cb=20160110165058",
@@ -48,7 +48,7 @@ exports.seed = function(knex, Promise) {
         ]
       ),
       knex.raw(
-        "INSERT INTO races (name, image, ability_score_increase, max_age, size, height, avg_weight, speed, alignment, dark_vision, languages, additional_race_features, description, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "INSERT INTO races (name, image, ability_score_increase, max_age, size, height, avg_weight, speed, alignment, dark_vision, languages, additional_traits, description, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         [
           "Halfling",
           "https://media-waterdeep.cursecdn.com/avatars/thumbnails/6/256/420/618/636271789409776659.png",
@@ -67,7 +67,7 @@ exports.seed = function(knex, Promise) {
         ]
       ),
       knex.raw(
-        "INSERT INTO races (name, image, ability_score_increase, max_age, size, height, avg_weight, speed, alignment, dark_vision, languages, additional_race_features, description, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "INSERT INTO races (name, image, ability_score_increase, max_age, size, height, avg_weight, speed, alignment, dark_vision, languages, additional_traits, description, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         [
           "Human",
           "https://media-waterdeep.cursecdn.com/avatars/thumbnails/6/258/420/618/636271801914013762.png",
@@ -86,7 +86,7 @@ exports.seed = function(knex, Promise) {
         ]
       ),
       knex.raw(
-        "INSERT INTO races (name, image, ability_score_increase, max_age, size, height, avg_weight, speed, alignment, dark_vision, languages, additional_race_features, description, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "INSERT INTO races (name, image, ability_score_increase, max_age, size, height, avg_weight, speed, alignment, dark_vision, languages, additional_traits, description, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         [
           "Dragonborn",
           "https://i.pinimg.com/originals/fd/94/c2/fd94c2b64f080b5da90cae6d6c3cc186.png",
@@ -105,7 +105,7 @@ exports.seed = function(knex, Promise) {
         ]
       ),
       knex.raw(
-        "INSERT INTO races (name, image, ability_score_increase, max_age, size, height, avg_weight, speed, alignment, dark_vision, languages, additional_race_features, description, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "INSERT INTO races (name, image, ability_score_increase, max_age, size, height, avg_weight, speed, alignment, dark_vision, languages, additional_traits, description, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         [
           "Gnome",
           "https://media-waterdeep.cursecdn.com/avatars/thumbnails/6/334/420/618/636272671553055253.png",
@@ -124,7 +124,7 @@ exports.seed = function(knex, Promise) {
         ]
       ),
       knex.raw(
-        "INSERT INTO races (name, image, ability_score_increase, max_age, size, height, avg_weight, speed, alignment, dark_vision, languages, additional_race_features, description, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "INSERT INTO races (name, image, ability_score_increase, max_age, size, height, avg_weight, speed, alignment, dark_vision, languages, additional_traits, description, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         [
           "Half Elf",
           "https://media-waterdeep.cursecdn.com/avatars/thumbnails/6/481/420/618/636274618102950794.png",
@@ -143,7 +143,7 @@ exports.seed = function(knex, Promise) {
         ]
       ),
       knex.raw(
-        "INSERT INTO races (name, image, ability_score_increase, max_age, size, height, avg_weight, speed, alignment, dark_vision, languages, additional_race_features, description, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "INSERT INTO races (name, image, ability_score_increase, max_age, size, height, avg_weight, speed, alignment, dark_vision, languages, additional_traits, description, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         [
           "Half Orc",
           "https://media-waterdeep.cursecdn.com/avatars/thumbnails/6/466/420/618/636274570630462055.png",
@@ -162,7 +162,7 @@ exports.seed = function(knex, Promise) {
         ]
       ),
       knex.raw(
-        "INSERT INTO races (name, image, ability_score_increase, max_age, size, height, avg_weight, speed, alignment, dark_vision, languages, additional_race_features, description, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "INSERT INTO races (name, image, ability_score_increase, max_age, size, height, avg_weight, speed, alignment, dark_vision, languages, additional_traits, description, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         [
           "Tiefling",
           "https://media-waterdeep.cursecdn.com/avatars/thumbnails/7/641/420/618/636287076637981942.png",
