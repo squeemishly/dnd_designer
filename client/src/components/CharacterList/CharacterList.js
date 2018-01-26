@@ -3,6 +3,7 @@ import Transition from "react-transition-group/Transition";
 
 import classes from "./CharacterList.css";
 import CharacterSheet from "../CharacterSheet/CharacterSheet";
+import Aux from '../../hoc/Aux/Aux'
 
 class CharacterList extends Component {
   state = {
@@ -67,16 +68,14 @@ class CharacterList extends Component {
               exited: { opacity: 0 }
             };
             return (
-              <div
+              <Aux
                 style={{
                   ...defaultStyle,
                   ...transitionStyles[state]
                 }}
               >
-                <div>
-                  <CharacterSheet character={this.state.selectedCharacter} />
-                </div>
-              </div>
+                <CharacterSheet character={this.state.selectedCharacter} />
+              </Aux>
             );
           }}
         </Transition>
