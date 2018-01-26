@@ -1,3 +1,61 @@
-.CharacterSheetContainer {
-    width: 100%
+.Container {
+  flex: 1;
+  height: 650px;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+}
+
+.Title {
+  border: 1px solid red;
+  height: 10%;
+}
+
+.AttributeContainer {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid blue;
+  height: 20%;
+}
+
+.STRContainer {
+  border: 1px solid yellow;
+  height: 100%;
+  width: 65%;
+}
+
+.ACContainer {
+  border: 1px solid pink;
+  height: 100%;
+  width: 35%;
+}
+
+.SkillsWeaponBackPackContainer {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid green;
+  height: 70%;
+}
+
+.SkillsContainer {
+  height: 100%;
+  width: 30%;
+  border: 1px solid purple;
+}
+
+.WeaponsBackpackContainer {
+  height: 100%;
+  width: 70%;
+}
+
+.WeaponsContainer {
+  height: 50%;
+  width: 100%;
+  border: 1px solid red;
+}
+
+.BackpackContainer {
+  height: 50%;
+  width: 100%;
+  border: 1px solid yellow;
 }
