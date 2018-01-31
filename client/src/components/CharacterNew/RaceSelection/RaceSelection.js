@@ -1,6 +1,7 @@
 import React from "react";
 
 import classes from "./RaceSelection.css";
+import Button from '../../UI/Button/Button'
 
 const raceSelection = props => (
   
@@ -13,18 +14,17 @@ const raceSelection = props => (
       >
         <h1>CHOOSE YOUR RACE:</h1>
         <h4>Click a character race for more information</h4>
-        <ul className={classes.RaceList}>
+        <div className={classes.RaceList}>
           {props.races.map(race => (
-            <li key={race}>
-              <div
+              <Button
+                key={race}
                 className={classes.RaceListItem}
-                onClick={() => props.onSelect(race)}
+                clicked={() => props.onSelect(race)}
               >
                 {race}
-              </div>
-            </li>
+              </Button>
           ))}
-        </ul>
+        </div>
       </div>
     
   

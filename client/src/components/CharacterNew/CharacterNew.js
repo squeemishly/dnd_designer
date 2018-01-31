@@ -198,6 +198,9 @@ class CharacterNew extends Component {
                   }
                   buttonClicked={() => this.raceDetailFinished()}
                   disableButton={!this.state.raceDetailFormIsValid}
+                  subraceSelection={this.state.subraceSelection}
+                  classSelection={this.state.classSelection}
+                  backgroundSelection={this.state.backgroundSelection}
                 />
               </div>
             );

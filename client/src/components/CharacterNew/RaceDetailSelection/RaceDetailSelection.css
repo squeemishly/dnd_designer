@@ -17,6 +17,12 @@
   justify-content: space-around;
 }
 
+.SingleDropdownContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .IMG {
   height: 200px;
 }
