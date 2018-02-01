@@ -21,6 +21,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 120px;
+  width: 350px;
+  justify-content: space-between;
 }
 
 .IMG {

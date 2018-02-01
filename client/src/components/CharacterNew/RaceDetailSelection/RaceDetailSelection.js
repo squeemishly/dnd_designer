@@ -5,14 +5,21 @@ import Button from "../../UI/Button/Button";
 import classes from "./RaceDetailSelection.css";
 
 const raceDetailSelection = props => {
-  const renderLabel = label => {
+  const renderButton = (label, category) => {
     if (label === "") {
-      return "Please Make a Selection";
+      return null
     } else {
-      return `Learn More about ${label}`;
+      return (
+      <button 
+          style={{ fontSize: "1em", marginTop: "0", width: "350px" }}
+          onClick={() => props.moreRaceInfo(label, category)}
+          >
+        Learn More about {label}
+       </button>
+       )
     }
   };
-  
+
   return (
     <div className={classes.RaceDetailSelectionContainer}>
       <div className={classes.RaceDetailHeader}>
@@ -32,37 +39,30 @@ const raceDetailSelection = props => {
       </div>
       <div className={classes.DropdownsContainer}>
         <div className={classes.SingleDropdownContainer}>
-          <button 
-          style={{ fontSize: "1em", marginTop: "0", width: "350px" }}
-          onClick={() => console.log("CLICKED")}
-          >
-            {renderLabel(props.subraceSelection)}
-          </button>
+          
+          
           <Dropdown
             selection={"Subrace"}
             options={props.subraceOptions}
             changed={event => props.dropdownChanged(event, "Subrace")}
-          />
+            />
+            {renderButton(props.subraceSelection, 'Subrace')}
         </div>
         <div className={classes.SingleDropdownContainer}>
-          <button style={{ fontSize: "1em", marginTop: "0", width: "350px" }}>
-            {renderLabel(props.classSelection)}
-          </button>
           <Dropdown
             selection={"Class"}
             options={props.classOptions}
             changed={event => props.dropdownChanged(event, "Class")}
-          />
+            />
+            {renderButton(props.classSelection, 'Class')}
         </div>
         <div className={classes.SingleDropdownContainer}>
-          <button style={{ fontSize: "1em", marginTop: "0", width: "350px" }}>
-            {renderLabel(props.backgroundSelection)}
-          </button>
           <Dropdown
             selection={"Background"}
             options={props.backgroundOptions}
             changed={event => props.dropdownChanged(event, "Background")}
-          />
+            />
+            {renderButton(props.backgroundSelection, 'Background')}
         </div>
       </div>
       <div>

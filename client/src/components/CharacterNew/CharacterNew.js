@@ -5,6 +5,7 @@ import Transition from "react-transition-group/Transition";
 import RaceInfo from "./RaceInfo/RaceInfo";
 import RaceSelection from "./RaceSelection/RaceSelection";
 import RaceDetailSelection from "./RaceDetailSelection/RaceDetailSelection";
+import RaceDetailInfo from "./RaceDetailInfo/RaceDetailInfo";
 import Modal from "../UI/Modal/Modal";
 import Aux from "../../hoc/Aux/Aux";
 import * as actions from "../../store/actions";
@@ -12,13 +13,25 @@ import classes from "./CharacterNew.css";
 
 class CharacterNew extends Component {
   state = {
-    races: ["Dwarf", "Elf", "Halfling", "Human", "Dragonborn", "Half Elf", "Gnome", "Tiefling", "Half Orc"],
+    races: [
+      "Dwarf",
+      "Elf",
+      "Halfling",
+      "Human",
+      "Dragonborn",
+      "Half Elf",
+      "Gnome",
+      "Tiefling",
+      "Half Orc"
+    ],
     showModal: false,
     selectedRace: null,
     showRaceSelections: true,
     showRaceDetails: false,
     showCharacterStats: false,
     showCharacterStatsForm: false,
+    showRaceDetailModal: false,
+    raceDetailShown: null,
     dwarf: {
       subrace: ["Gray Dwarf", "Hill Dwarf", "Mountain Dwarf"],
       class: [],
@@ -137,6 +150,14 @@ class CharacterNew extends Component {
     this.setState({ showRaceDetails: false });
   };
 
+  showRaceDetailModal = (label, category) => {
+    this.setState({ showRaceDetailModal: true, raceDetailShown: label });
+  };
+
+  removeRaceDetailModal = () => {
+    this.setState({ showRaceDetailModal: false });
+  };
+
   render() {
     return (
       <Aux>
@@ -187,6 +208,12 @@ class CharacterNew extends Component {
                   ...transitionStyles[state]
                 }}
               >
+                <Modal
+                  show={this.state.showRaceDetailModal}
+                  removeModal={this.removeRaceDetailModal}
+                >
+                  <RaceDetailInfo detail={this.state.raceDetailShown} />
+                </Modal>
                 <RaceDetailSelection
                   characterName={this.props.charas.character.name}
                   characterImage={this.props.charas.character.image}
@@ -201,6 +228,7 @@ class CharacterNew extends Component {
                   subraceSelection={this.state.subraceSelection}
                   classSelection={this.state.classSelection}
                   backgroundSelection={this.state.backgroundSelection}
+                  moreRaceInfo={this.showRaceDetailModal}
                 />
               </div>
             );
@@ -215,10 +243,9 @@ class CharacterNew extends Component {
           {state => {
             const cssClasses = [
               classes.CharacterSideBar,
-              state === 'entering'
-              ? classes.SideBarOpen
-              : state === 'exiting'
-              ? classes.SideBarClosed : null
+              state === "entering"
+                ? classes.SideBarOpen
+                : state === "exiting" ? classes.SideBarClosed : null
             ];
             return (
               <div>
@@ -259,9 +286,7 @@ class CharacterNew extends Component {
               entering: { opacity: 0 },
               entered: { opacity: 1 }
             };
-            const cssClasses = [
-              classes.CharacterStatsForm
-            ];
+            const cssClasses = [classes.CharacterStatsForm];
             return (
               <div
                 style={{
@@ -270,9 +295,7 @@ class CharacterNew extends Component {
                 }}
               >
                 <div className={cssClasses.join(" ")}>
-                  <div>
-                    STATS FORM
-                  </div>
+                  <div>STATS FORM</div>
                 </div>
               </div>
             );
