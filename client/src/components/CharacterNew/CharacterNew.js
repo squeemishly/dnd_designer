@@ -32,6 +32,7 @@ class CharacterNew extends Component {
     showCharacterStatsForm: false,
     showRaceDetailModal: false,
     raceDetailShown: null,
+    subraces: [],
     dwarf: {
       subrace: ["Gray Dwarf", "Hill Dwarf", "Mountain Dwarf"],
       class: [],
@@ -87,6 +88,12 @@ class CharacterNew extends Component {
   renderRaceDetails = () => {
     this.setState({ showRaceDetails: true });
   };
+
+  subraceOptions = (race) => {
+    const currentSubraces = this.props.fetchSubRace(race)
+    this.setState({ subraces: currentSubraces })
+    console.log('subraces', this.state.subraces)
+  }
 
   renderCharacterStats = () => {
     this.setState({ showCharacterStats: true, showCharacterStatsForm: true });
@@ -218,7 +225,7 @@ class CharacterNew extends Component {
                 <RaceDetailSelection
                   characterName={this.props.charas.character.name}
                   characterImage={this.props.charas.character.image}
-                  subraceOptions={this.state.dwarf.subrace}
+                  subraceOptions={this.subraceOptions(this.state.selectedRace)}
                   classOptions={this.state.dwarf.class}
                   backgroundOptions={this.state.dwarf.background}
                   dropdownChanged={(event, detailType) =>
@@ -317,6 +324,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchRace: name => dispatch(actions.fetchRace(name)),
+    fetchSubRace: race => dispatch(actions.fetchSubRace(race)),
     postCharacter: (race, subrace, klass, background, userId) => dispatch(actions.postCharacter(race, subrace, klass, background, userId))
   };
 };
