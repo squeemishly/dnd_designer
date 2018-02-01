@@ -10,6 +10,11 @@ const characterReducer = (state = initialState, action) => {
         ...state,
         character: action.payload
       };
+    case actionTypes.FETCH_SUBRACE_INFO:
+      return {
+        ...state,
+        character: action.payload
+      };
     default:
       return state;
   }
