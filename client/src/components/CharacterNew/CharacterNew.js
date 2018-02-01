@@ -33,7 +33,6 @@ class CharacterNew extends Component {
     showRaceDetailModal: false,
     raceDetailShown: null,
     dwarf: {
-      subrace: ["Gray Dwarf", "Hill Dwarf", "Mountain Dwarf"],
       class: [],
       background: [
         "Acolyte",
@@ -218,7 +217,7 @@ class CharacterNew extends Component {
                 <RaceDetailSelection
                   characterName={this.props.charas.character.name}
                   characterImage={this.props.charas.character.image}
-                  subraceOptions={this.state.dwarf.subrace}
+                  subraceOptions={this.props.subraces}
                   classOptions={this.state.dwarf.class}
                   backgroundOptions={this.state.dwarf.background}
                   dropdownChanged={(event, detailType) =>
@@ -310,6 +309,7 @@ class CharacterNew extends Component {
 const mapStateToProps = state => {
   return {
     charas: state.charas,
+    subraces: state.charas.subraces,
     userId: state.auth.id
   };
 };
@@ -317,6 +317,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchRace: name => dispatch(actions.fetchRace(name)),
+    fetchSubRace: race => dispatch(actions.fetchSubRace(race)),
     postCharacter: (race, subrace, klass, background, userId) => dispatch(actions.postCharacter(race, subrace, klass, background, userId))
   };
 };
