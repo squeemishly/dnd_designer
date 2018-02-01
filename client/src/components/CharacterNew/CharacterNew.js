@@ -146,6 +146,7 @@ class CharacterNew extends Component {
       "BACKGROUND: ",
       this.state.backgroundSelection
     );
+    this.props.postCharacter(this.state.selectedRace, this.state.subraceSelection, this.state.classSelection, this.state.backgroundSelection, this.props.userId)
 
     this.setState({ showRaceDetails: false });
   };
@@ -308,13 +309,15 @@ class CharacterNew extends Component {
 
 const mapStateToProps = state => {
   return {
-    charas: state.charas
+    charas: state.charas,
+    userId: state.auth.id
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchRace: name => dispatch(actions.fetchRace(name))
+    fetchRace: name => dispatch(actions.fetchRace(name)),
+    postCharacter: (race, subrace, klass, background, userId) => dispatch(actions.postCharacter(race, subrace, klass, background, userId))
   };
 };
 
