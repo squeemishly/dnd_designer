@@ -17,6 +17,15 @@
   justify-content: space-around;
 }
 
+.SingleDropdownContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 120px;
+  width: 350px;
+  justify-content: space-between;
+}
+
 .IMG {
   height: 200px;
 }
