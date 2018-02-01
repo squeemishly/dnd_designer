@@ -32,9 +32,7 @@ class CharacterNew extends Component {
     showCharacterStatsForm: false,
     showRaceDetailModal: false,
     raceDetailShown: null,
-    subraces: [],
     dwarf: {
-      subrace: ["Gray Dwarf", "Hill Dwarf", "Mountain Dwarf"],
       class: [],
       background: [
         "Acolyte",
@@ -88,12 +86,6 @@ class CharacterNew extends Component {
   renderRaceDetails = () => {
     this.setState({ showRaceDetails: true });
   };
-
-  subraceOptions = (race) => {
-    const currentSubraces = this.props.fetchSubRace(race)
-    this.setState({ subraces: currentSubraces })
-    console.log('subraces', this.state.subraces)
-  }
 
   renderCharacterStats = () => {
     this.setState({ showCharacterStats: true, showCharacterStatsForm: true });
@@ -225,7 +217,7 @@ class CharacterNew extends Component {
                 <RaceDetailSelection
                   characterName={this.props.charas.character.name}
                   characterImage={this.props.charas.character.image}
-                  subraceOptions={this.subraceOptions(this.state.selectedRace)}
+                  subraceOptions={this.props.subraces}
                   classOptions={this.state.dwarf.class}
                   backgroundOptions={this.state.dwarf.background}
                   dropdownChanged={(event, detailType) =>
@@ -317,6 +309,7 @@ class CharacterNew extends Component {
 const mapStateToProps = state => {
   return {
     charas: state.charas,
+    subraces: state.charas.subraces,
     userId: state.auth.id
   };
 };
