@@ -29,6 +29,7 @@ class RaceInfo extends Component {
     if (this.props.charas.character) {
       raceInfo = (
         <div className={classes.RaceInfoContainer}>
+        <div className={classes.BasicInfoContainer}>
           <div className={classes.RaceInfoTitle}>
             <h1 style={{ marginRight: "30px" }}>
               {this.props.charas.character.name}{" "}
@@ -71,7 +72,8 @@ class RaceInfo extends Component {
               </tr>
             </tbody>
           </table>
-
+          </div>
+        <div className={classes.DetailTraits}>
           <RaceTraits additionalTraits={this.props.charas.character.additional_traits}/>
 
 
@@ -81,6 +83,7 @@ class RaceInfo extends Component {
           <Button clicked={() => this.props.selectRace()}>
             Choose {this.props.charas.character.name}
           </Button>
+        </div>
         </div>
       );
     }

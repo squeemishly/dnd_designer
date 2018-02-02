@@ -7,8 +7,9 @@
 .RaceInfoContainer {
   background: linear-gradient(135deg, rgb(104, 100, 100), #ffffff) no-repeat center center fixed;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
+  border: 1px solid black;
 }
 
 .RaceInfoContainer h1, h2 {
@@ -19,6 +20,20 @@
   display: flex;
   flex-direction: row;
   align-items: flex-end;
+}
+
+.BasicInfoContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 5px 15px;
+  align-items: center;
+}
+
+.DetailTraits {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px 15px;
 }
 
 .RaceInfoContainer th,
