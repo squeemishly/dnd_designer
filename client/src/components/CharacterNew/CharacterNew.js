@@ -94,7 +94,7 @@ class CharacterNew extends Component {
   checkRaceDetailValidity(selectionType) {
     let isValid = true;
 
-    if (this.state.dwarf.subrace.length > 0) {
+    if (this.props.subraces > 0) {
       this.state.subraceSelection.length > 0 || selectionType === "Subrace"
         ? (isValid = true && isValid)
         : (isValid = false);
