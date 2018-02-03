@@ -11,7 +11,7 @@ const characterReducer = (state = initialState, action) => {
         ...state,
         character: action.payload
       };
-      case actionTypes.FETCH_RACE_DETAILS:
+      case actionTypes.FETCH_CHARACTER_OPTIONS:
       return updateObject( state, {
         subraces: action.payload.subraces,
         backgrounds: action.payload.backgrounds
