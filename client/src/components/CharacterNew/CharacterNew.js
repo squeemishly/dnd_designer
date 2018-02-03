@@ -174,9 +174,7 @@ class CharacterNew extends Component {
             if (this.props.subraces) {
               subraces = this.props.charas.subraces.map(subrace => subrace.name)
             }
-
             let backgrounds = []
-
             if (this.props.backgrounds) {
               backgrounds = this.props.charas.backgrounds.map(background => background.name)
             }
