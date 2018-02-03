@@ -296,7 +296,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchRace: name => dispatch(actions.fetchRace(name)),
-    fetchSubRace: race => dispatch(actions.fetchSubRace(race)),
     postCharacter: (race, subrace, klass, background, userId) => dispatch(actions.postCharacter(race, subrace, klass, background, userId))
   };
 };

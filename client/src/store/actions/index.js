@@ -18,6 +18,7 @@ export const fetchRace = name => async dispatch => {
 };
 
 export const fetchRaceDetails = race => async dispatch => {
+  console.log("FETCH RACE DETAILS: ")
   const res = await axios.get(`/api/character/details/${race}`)
   dispatch({
     type: actionTypes.FETCH_RACE_DETAILS,
