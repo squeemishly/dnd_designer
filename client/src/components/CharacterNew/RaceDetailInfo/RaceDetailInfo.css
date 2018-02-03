@@ -1,0 +1,17 @@
+.Container {
+    background: linear-gradient(135deg, rgb(104, 100, 100), #ffffff) no-repeat center center fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid black;
+}
+
+.Title {
+    margin-top: 50px;
+    text-align: center;
+}
+
+.Table {
+    margin-top: 30px;
+    margin-bottom: 100px;
+}

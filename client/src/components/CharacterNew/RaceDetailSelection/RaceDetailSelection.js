@@ -9,7 +9,7 @@ import * as actions from "../../../store/actions";
 
 class RaceDetailSelection extends Component {
   componentWillMount() {
-    this.props.fetchSubRace(this.props.characterName)
+    this.props.fetchRaceDetails(this.props.characterName)
   }
 
   render() {
@@ -93,7 +93,7 @@ class RaceDetailSelection extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchSubRace: race => dispatch(actions.fetchSubRace(race))
+    fetchRaceDetails: race => dispatch(actions.fetchRaceDetails(race))
   };
 };
 

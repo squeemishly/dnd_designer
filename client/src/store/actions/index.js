@@ -17,10 +17,11 @@ export const fetchRace = name => async dispatch => {
   });
 };
 
-export const fetchSubRace = race => async dispatch => {
-  const res = await axios.get(`/api/character/subrace/${race}`);
+export const fetchRaceDetails = race => async dispatch => {
+  console.log("FETCH RACE DETAILS: ")
+  const res = await axios.get(`/api/character/details/${race}`)
   dispatch({
-    type: actionTypes.FETCH_SUBRACE_INFO,
+    type: actionTypes.FETCH_RACE_DETAILS,
     payload: res.data
   })
 }
