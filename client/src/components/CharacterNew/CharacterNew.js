@@ -32,38 +32,6 @@ class CharacterNew extends Component {
     showCharacterStatsForm: false,
     showRaceDetailModal: false,
     raceDetailShown: null,
-    dwarf: {
-      class: [],
-      background: [
-        "Acolyte",
-        "Barbarian",
-        "Charlatan",
-        "City Watch",
-        "Clan Crafter",
-        "Cloistered",
-        "Courtier",
-        "Criminal",
-        "Custom",
-        "Entertainer",
-        "Faction Agent",
-        "Far Traveler",
-        "Folk Hero",
-        "Guild Artisan",
-        "Haunted One",
-        "Hermit",
-        "Inheritor",
-        "Knight",
-        "Mercenary",
-        "Noble",
-        "Outlander",
-        "Port City",
-        "Sage",
-        "Sailor",
-        "Soldier",
-        "Urban",
-        "Urchin"
-      ]
-    },
     subraceSelection: "",
     classSelection: "",
     backgroundSelection: "",
@@ -94,19 +62,19 @@ class CharacterNew extends Component {
   checkRaceDetailValidity(selectionType) {
     let isValid = true;
 
-    if (this.state.dwarf.subrace.length > 0) {
+    if (this.props.subraces > 0) {
       this.state.subraceSelection.length > 0 || selectionType === "Subrace"
         ? (isValid = true && isValid)
         : (isValid = false);
     }
 
-    if (this.state.dwarf.class.length > 0) {
-      this.state.classSelection.length > 0 || selectionType === "Class"
-        ? (isValid = true && isValid)
-        : (isValid = false);
-    }
+    // if (this.state.class.length > 0) {
+    //   this.state.classSelection.length > 0 || selectionType === "Class"
+    //     ? (isValid = true && isValid)
+    //     : (isValid = false);
+    // }
 
-    if (this.state.dwarf.background.length > 0) {
+    if (this.props.backgrounds.length > 0) {
       this.state.backgroundSelection.length > 0 ||
       selectionType === "Background"
         ? (isValid = true && isValid)
@@ -201,6 +169,15 @@ class CharacterNew extends Component {
               exiting: { opacity: 1 },
               exited: { opacity: 0 }
             };
+
+            let subraces = []
+            if (this.props.subraces) {
+              subraces = this.props.charas.subraces.map(subrace => subrace.name)
+            }
+            let backgrounds = []
+            if (this.props.backgrounds) {
+              backgrounds = this.props.charas.backgrounds.map(background => background.name)
+            }
             return (
               <div
                 style={{
@@ -217,9 +194,10 @@ class CharacterNew extends Component {
                 <RaceDetailSelection
                   characterName={this.props.charas.character.name}
                   characterImage={this.props.charas.character.image}
-                  subraceOptions={this.props.subraces}
-                  classOptions={this.state.dwarf.class}
-                  backgroundOptions={this.state.dwarf.background}
+                  subraceOptions={subraces}
+                  classOptions={[]}
+                  backgroundOptions={backgrounds}
+
                   dropdownChanged={(event, detailType) =>
                     this.onDetailSelect(event, detailType)
                   }
@@ -310,6 +288,7 @@ const mapStateToProps = state => {
   return {
     charas: state.charas,
     subraces: state.charas.subraces,
+    backgrounds: state.charas.backgrounds,
     userId: state.auth.id
   };
 };
@@ -317,7 +296,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchRace: name => dispatch(actions.fetchRace(name)),
-    fetchSubRace: race => dispatch(actions.fetchSubRace(race)),
     postCharacter: (race, subrace, klass, background, userId) => dispatch(actions.postCharacter(race, subrace, klass, background, userId))
   };
 };

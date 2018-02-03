@@ -1,4 +1,5 @@
 import * as actionTypes from "../actions/types";
+import { updateObject } from '../utility';
 
 const initialState = {};
 
@@ -10,12 +11,11 @@ const characterReducer = (state = initialState, action) => {
         ...state,
         character: action.payload
       };
-    case actionTypes.FETCH_SUBRACE_INFO:
-      const subraceList = action.payload.map(subrace => subrace.name)
-      return {
-        ...state,
-        subraces: subraceList
-      };
+      case actionTypes.FETCH_RACE_DETAILS:
+      return updateObject( state, {
+        subraces: action.payload.subraces,
+        backgrounds: action.payload.backgrounds
+      })
     default:
       return state;
   }
