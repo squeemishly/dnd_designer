@@ -10,12 +10,17 @@ const characterReducer = (state = initialState, action) => {
         ...state,
         character: action.payload
       };
-    case actionTypes.FETCH_SUBRACE_INFO:
-      const subraceList = action.payload.map(subrace => subrace.name)
+    // case actionTypes.FETCH_SUBRACE_INFO:
+    //   const subraceList = action.payload.map(subrace => subrace.name)
+    //   return {
+    //     ...state,
+    //     subraces: subraceList
+    //   };
+      case actionTypes.FETCH_RACE_DETAILS:
+      console.log(action.payload)
       return {
-        ...state,
-        subraces: subraceList
-      };
+        ...state
+      }
     default:
       return state;
   }

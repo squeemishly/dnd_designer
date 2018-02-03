@@ -9,7 +9,10 @@ import * as actions from "../../../store/actions";
 
 class RaceDetailSelection extends Component {
   componentWillMount() {
-    this.props.fetchSubRace(this.props.characterName)
+    // { characterName } = this.props  
+    this.props.fetchRaceDetails(this.props.characterName)
+    // this.props.fetchSubRace(this.props.characterName)
+    // this.props.fetchBackground(this.props.characterName)
   }
 
   render() {
@@ -93,7 +96,9 @@ class RaceDetailSelection extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchSubRace: race => dispatch(actions.fetchSubRace(race))
+    // fetchSubRace: race => dispatch(actions.fetchSubRace(race)),
+    // fetchBackground: race => dispatch(actions.fetchBackground(race)),
+    fetchRaceDetails: race => dispatch(actions.fetchRaceDetails(race))
   };
 };
 
