@@ -17,22 +17,6 @@ export const fetchRace = name => async dispatch => {
   });
 };
 
-// export const fetchSubRace = race => async dispatch => {
-//   const res = await axios.get(`/api/character/subrace/${race}`);
-//   dispatch({
-//     type: actionTypes.FETCH_SUBRACE_INFO,
-//     payload: res.data
-//   })
-// }
-
-// export const fetchBackground = race => async dispatch => {
-//   const res = await axios.get(`/api/character/background/${race}`)
-//   dispatch({
-//     type: actionTypes.FETCH_BACKGROUND_INFO,
-//     payload: res.data
-//   })
-// }
-
 export const fetchRaceDetails = race => async dispatch => {
   const res = await axios.get(`/api/character/details/${race}`)
   dispatch({
