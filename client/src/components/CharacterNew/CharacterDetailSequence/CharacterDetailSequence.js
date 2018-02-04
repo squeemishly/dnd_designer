@@ -5,13 +5,12 @@ import RaceDetailSelection from "./RaceDetailSelection/RaceDetailSelection";
 import RaceDetailInfo from "./RaceDetailInfo/RaceDetailInfo";
 import Aux from "../../../hoc/Aux/Aux";
 import Modal from "../../UI/Modal/Modal";
-import classes from './CharacterDetailSequence.css'
 
 class CharacterDetailSequence extends Component {
   render() {
     return (
       <Aux>
-       <Transition
+        <Transition
           in={this.props.showRaceDetails}
           timeout={100}
           mountOnEnter
@@ -31,13 +30,15 @@ class CharacterDetailSequence extends Component {
               exited: { opacity: 0 }
             };
 
-            let subraces = []
+            let subraces = [];
             if (this.props.subraces) {
-              subraces = this.props.subraces.map(subrace => subrace.name)
+              subraces = this.props.subraces.map(subrace => subrace.name);
             }
-            let backgrounds = []
+            let backgrounds = [];
             if (this.props.backgrounds) {
-              backgrounds = this.props.backgrounds.map(background => background.name)
+              backgrounds = this.props.backgrounds.map(
+                background => background.name
+              );
             }
             return (
               <div
@@ -58,7 +59,6 @@ class CharacterDetailSequence extends Component {
                   subraceOptions={subraces}
                   classOptions={[]}
                   backgroundOptions={backgrounds}
-
                   dropdownChanged={(event, detailType) =>
                     this.props.dropdownChanged(event, detailType)
                   }

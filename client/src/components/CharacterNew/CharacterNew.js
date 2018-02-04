@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Transition from "react-transition-group/Transition";
+// import Transition from "react-transition-group/Transition";
 
 import RaceSelectionSequence from './RaceSelectionSequence/RaceSelectionSequence'
 import CharacterDetailSequence from './CharacterDetailSequence/CharacterDetailSequence'
-import Modal from "../UI/Modal/Modal";
+// import CharacterSheet from '../CharacterSheet/CharacterSheet'
+// import Modal from "../UI/Modal/Modal";
 import Aux from "../../hoc/Aux/Aux";
 import * as actions from "../../store/actions";
-import classes from "./CharacterNew.css";
+// import classes from "./CharacterNew.css";
 
 class CharacterNew extends Component {
   state = {
@@ -53,8 +54,8 @@ class CharacterNew extends Component {
     this.setState({ showRaceDetails: true });
   };
 
-  renderCharacterStats = () => {
-    this.setState({ showCharacterStats: true, showCharacterStatsForm: true });
+  renderCharacterSheet = () => {
+    
   };
 
   checkRaceDetailValidity(selectionType) {
@@ -103,16 +104,7 @@ class CharacterNew extends Component {
   };
 
   raceDetailFinished = () => {
-    console.log(
-      "SUBRACE: ",
-      this.state.subraceSelection,
-      "CLASS: ",
-      this.state.classSelection,
-      "BACKGROUND: ",
-      this.state.backgroundSelection
-    );
     this.props.postCharacter(this.state.selectedRace, this.state.subraceSelection, this.state.classSelection, this.state.backgroundSelection, this.props.userId)
-
     this.setState({ showRaceDetails: false });
   };
 
@@ -139,7 +131,7 @@ class CharacterNew extends Component {
           />
         <CharacterDetailSequence 
           showRaceDetails={this.state.showRaceDetails}
-          onExit={() => this.renderCharacterStats()}
+          onExit={() => this.renderCharacterSheet()}
           subraces={this.props.subraces}
           backgrounds={this.props.backgrounds}
           showRaceDetailModal={this.state.showRaceDetailModal}
@@ -154,73 +146,6 @@ class CharacterNew extends Component {
           backgroundSelection={this.state.backgroundSelection}
           moreRaceInfo={this.showRaceDetailModal}
         />
-        <Transition
-          in={this.state.showCharacterStats}
-          timeout={300}
-          mountOnEnter
-          unmountOnExit
-        >
-          {state => {
-            const cssClasses = [
-              classes.CharacterSideBar,
-              state === "entering"
-                ? classes.SideBarOpen
-                : state === "exiting" ? classes.SideBarClosed : null
-            ];
-            return (
-              <div>
-                <div className={cssClasses.join(" ")}>
-                  <div className={classes.SideBarContents}>
-                    <img
-                      className={classes.IMG}
-                      src={this.props.charas.character.image}
-                      alt="Character"
-                    />
-                    <h1>Race</h1>
-                    <h1>{this.props.charas.character.name}</h1>
-                    <h2>SubRace</h2>
-                    <h2>{this.state.subraceSelection}</h2>
-                    <h2>Class</h2>
-                    <h2>{this.state.classSelection}</h2>
-                    <h2>Background</h2>
-                    <h2>{this.state.backgroundSelection}</h2>
-                  </div>
-                </div>
-              </div>
-            );
-          }}
-        </Transition>
-        <Transition
-          in={this.state.showCharacterStatsForm}
-          timeout={100}
-          mountOnEnter
-          unmountOnExit
-        >
-          {state => {
-            const defaultStyle = {
-              transition: `opacity 400ms ease-in-out`,
-              opacity: 1
-            };
-
-            const transitionStyles = {
-              entering: { opacity: 0 },
-              entered: { opacity: 1 }
-            };
-            const cssClasses = [classes.CharacterStatsForm];
-            return (
-              <div
-                style={{
-                  ...defaultStyle,
-                  ...transitionStyles[state]
-                }}
-              >
-                <div className={cssClasses.join(" ")}>
-                  <div>STATS FORM</div>
-                </div>
-              </div>
-            );
-          }}
-        </Transition>
       </Aux>
     );
   }

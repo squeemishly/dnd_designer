@@ -1,9 +1,77 @@
-.Container {
+.SideBarOpen {
+  animation: openSideBar 0.5s ease-out forwards;
+}
+
+.SideBarClosed {
+  animation: closeSideBar 1s ease-out forwards;
+}
+
+@keyframes openSideBar {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(10%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes closeSideBar {
+  0% {
+    opacity: 1;
+    transform: translate(0);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translate(40%);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-100%);
+  }
+}
+
+.CharacterSideBar {
+  position: fixed;
+  width: 280px;
+  max-width: 70%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background-color: white;
+  padding: 32px 16px;
+  box-sizing: border-box;
+  box-shadow: 20px 38px 34px -26px hsla(0, 0%, 0%, 0.8);
+}
+
+.Open {
+  transform: translateX(0);
+}
+
+.Close {
+    transform: translateX(100)
+}
+
+.SideBarContents {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 30px;
+}
+
+.SheetContainer {
+  margin-left: 300px;
   flex: 1;
   height: 650px;
   border: 1px solid black;
   display: flex;
   flex-direction: column;
+  transition: opacity 400ms ease-in-out;
 }
 
 .Title {
@@ -58,4 +126,14 @@
   height: 50%;
   width: 100%;
   border: 1px solid yellow;
+}
+
+.CharacterStatsForm {
+  border: 1px solid black;
+  margin-left: 300px;
+  margin-right: 20px;
+}
+
+.IMG {
+  height: 150px;
 }
