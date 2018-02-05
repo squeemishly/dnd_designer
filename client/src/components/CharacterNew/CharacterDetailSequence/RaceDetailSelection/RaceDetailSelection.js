@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import Dropdown from "../../UI/Dropdown/Dropdown";
-import Button from "../../UI/Button/Button";
+import Dropdown from "../../../UI/Dropdown/Dropdown";
+import Button from "../../../UI/Button/Button";
 import classes from "./RaceDetailSelection.css";
-import * as actions from "../../../store/actions";
+import * as actions from "../../../../store/actions";
 
 
 class RaceDetailSelection extends Component {
   componentWillMount() {
-    this.props.fetchRaceDetails(this.props.characterName)
+    this.props.fetchCharacterOptions(this.props.characterName)
   }
 
   render() {
@@ -93,7 +93,7 @@ class RaceDetailSelection extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchRaceDetails: race => dispatch(actions.fetchRaceDetails(race))
+    fetchCharacterOptions: race => dispatch(actions.fetchCharacterOptions(race))
   };
 };
 
