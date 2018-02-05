@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Transition from "react-transition-group/Transition";
 
 import RaceDetailSelection from "./RaceDetailSelection/RaceDetailSelection";
-import RaceDetailInfo from "./RaceDetailInfo/RaceDetailInfo";
+import CharacterOptions from "./CharacterOptions/CharacterOptions";
 import Aux from "../../../hoc/Aux/Aux";
 import Modal from "../../UI/Modal/Modal";
 
@@ -57,7 +57,7 @@ class CharacterDetailSequence extends Component {
                   show={this.props.showRaceDetailModal}
                   removeModal={this.props.removeRaceDetailModal}
                 >
-                  <RaceDetailInfo detail={this.props.raceDetailShown} />
+                  <CharacterOptions detail={this.props.raceDetailShown} />
                 </Modal>
                 <RaceDetailSelection
                   characterName={this.props.character.name}
