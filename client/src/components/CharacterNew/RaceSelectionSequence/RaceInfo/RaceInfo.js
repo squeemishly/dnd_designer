@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import classes from "./RaceInfo.css";
-import Aux from "../../../hoc/Aux/Aux";
-import Button from "../../UI/Button/Button";
+import Aux from "../../../../hoc/Aux/Aux";
+import Button from "../../../UI/Button/Button";
 
 class RaceInfo extends Component {
   selectRace = event => {};

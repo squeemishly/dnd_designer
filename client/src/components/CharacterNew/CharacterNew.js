@@ -1,15 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Transition from "react-transition-group/Transition";
+import { withRouter } from "react-router";
 
-import RaceInfo from "./RaceInfo/RaceInfo";
-import RaceSelection from "./RaceSelection/RaceSelection";
-import RaceDetailSelection from "./RaceDetailSelection/RaceDetailSelection";
-import RaceDetailInfo from "./RaceDetailInfo/RaceDetailInfo";
-import Modal from "../UI/Modal/Modal";
+import RaceSelectionSequence from "./RaceSelectionSequence/RaceSelectionSequence";
+import CharacterDetailSequence from "./CharacterDetailSequence/CharacterDetailSequence";
 import Aux from "../../hoc/Aux/Aux";
 import * as actions from "../../store/actions";
-import classes from "./CharacterNew.css";
 
 class CharacterNew extends Component {
   state = {
@@ -55,8 +51,8 @@ class CharacterNew extends Component {
     this.setState({ showRaceDetails: true });
   };
 
-  renderCharacterStats = () => {
-    this.setState({ showCharacterStats: true, showCharacterStatsForm: true });
+  renderCharacterSheet = () => {
+    this.props.history.push('/character/list')
   };
 
   checkRaceDetailValidity(selectionType) {
@@ -105,16 +101,13 @@ class CharacterNew extends Component {
   };
 
   raceDetailFinished = () => {
-    console.log(
-      "SUBRACE: ",
+    this.props.postCharacter(
+      this.state.selectedRace,
       this.state.subraceSelection,
-      "CLASS: ",
       this.state.classSelection,
-      "BACKGROUND: ",
-      this.state.backgroundSelection
+      this.state.backgroundSelection,
+      this.props.userId
     );
-    this.props.postCharacter(this.state.selectedRace, this.state.subraceSelection, this.state.classSelection, this.state.backgroundSelection, this.props.userId)
-
     this.setState({ showRaceDetails: false });
   };
 
@@ -129,156 +122,35 @@ class CharacterNew extends Component {
   render() {
     return (
       <Aux>
-        <Modal show={this.state.showModal} removeModal={this.removeModal}>
-          <RaceInfo
-            race={this.state.selectedRace}
-            selectRace={this.selectRace}
-          />
-        </Modal>
-        <Transition
-          in={this.state.showRaceSelections}
-          timeout={300}
-          mountOnEnter
-          unmountOnExit
-          onExited={() => this.renderRaceDetails()}
-        >
-          {state => (
-            <RaceSelection
-              state={state}
-              races={this.state.races}
-              onSelect={race => this.selectRaceInfo(race)}
-            />
-          )}
-        </Transition>
-        <Transition
-          in={this.state.showRaceDetails}
-          timeout={100}
-          mountOnEnter
-          unmountOnExit
-          onExited={() => this.renderCharacterStats()}
-        >
-          {state => {
-            const defaultStyle = {
-              transition: `opacity 300ms ease-in-out`,
-              opacity: 1
-            };
-
-            const transitionStyles = {
-              entering: { opacity: 0 },
-              entered: { opacity: 1 },
-              exiting: { opacity: 1 },
-              exited: { opacity: 0 }
-            };
-
-            let subraces = []
-            if (this.props.subraces) {
-              subraces = this.props.charas.subraces.map(subrace => subrace.name)
-            }
-            let backgrounds = []
-            if (this.props.backgrounds) {
-              backgrounds = this.props.charas.backgrounds.map(background => background.name)
-            }
-            return (
-              <div
-                style={{
-                  ...defaultStyle,
-                  ...transitionStyles[state]
-                }}
-              >
-                <Modal
-                  show={this.state.showRaceDetailModal}
-                  removeModal={this.removeRaceDetailModal}
-                >
-                  <RaceDetailInfo detail={this.state.raceDetailShown} />
-                </Modal>
-                <RaceDetailSelection
-                  characterName={this.props.charas.character.name}
-                  characterImage={this.props.charas.character.image}
-                  subraceOptions={subraces}
-                  classOptions={[]}
-                  backgroundOptions={backgrounds}
-
-                  dropdownChanged={(event, detailType) =>
-                    this.onDetailSelect(event, detailType)
-                  }
-                  buttonClicked={() => this.raceDetailFinished()}
-                  disableButton={!this.state.raceDetailFormIsValid}
-                  subraceSelection={this.state.subraceSelection}
-                  classSelection={this.state.classSelection}
-                  backgroundSelection={this.state.backgroundSelection}
-                  moreRaceInfo={this.showRaceDetailModal}
-                />
-              </div>
-            );
-          }}
-        </Transition>
-        <Transition
-          in={this.state.showCharacterStats}
-          timeout={300}
-          mountOnEnter
-          unmountOnExit
-        >
-          {state => {
-            const cssClasses = [
-              classes.CharacterSideBar,
-              state === "entering"
-                ? classes.SideBarOpen
-                : state === "exiting" ? classes.SideBarClosed : null
-            ];
-            return (
-              <div>
-                <div className={cssClasses.join(" ")}>
-                  <div className={classes.SideBarContents}>
-                    <img
-                      className={classes.IMG}
-                      src={this.props.charas.character.image}
-                      alt="Character"
-                    />
-                    <h1>Race</h1>
-                    <h1>{this.props.charas.character.name}</h1>
-                    <h2>SubRace</h2>
-                    <h2>{this.state.subraceSelection}</h2>
-                    <h2>Class</h2>
-                    <h2>{this.state.classSelection}</h2>
-                    <h2>Background</h2>
-                    <h2>{this.state.backgroundSelection}</h2>
-                  </div>
-                </div>
-              </div>
-            );
-          }}
-        </Transition>
-        <Transition
-          in={this.state.showCharacterStatsForm}
-          timeout={100}
-          mountOnEnter
-          unmountOnExit
-        >
-          {state => {
-            const defaultStyle = {
-              transition: `opacity 400ms ease-in-out`,
-              opacity: 1
-            };
-
-            const transitionStyles = {
-              entering: { opacity: 0 },
-              entered: { opacity: 1 }
-            };
-            const cssClasses = [classes.CharacterStatsForm];
-            return (
-              <div
-                style={{
-                  ...defaultStyle,
-                  ...transitionStyles[state]
-                }}
-              >
-                <div className={cssClasses.join(" ")}>
-                  <div>STATS FORM</div>
-                </div>
-              </div>
-            );
-          }}
-        </Transition>
+        <RaceSelectionSequence
+          showModal={this.state.showModal}
+          removeModal={this.removeModal}
+          race={this.state.selectedRace}
+          selectRace={this.selectRace}
+          showRaceSelections={this.state.showRaceSelections}
+          onExit={this.renderRaceDetails}
+          races={this.state.races}
+          onSelectRace={race => this.selectRaceInfo(race)}
+        />
+        <CharacterDetailSequence
+          showRaceDetails={this.state.showRaceDetails}
+          onExit={() => this.renderCharacterSheet()}
+          subraces={this.props.subraces}
+          backgrounds={this.props.backgrounds}
+          showRaceDetailModal={this.state.showRaceDetailModal}
+          removeRaceDetailModal={this.removeRaceDetailModal}
+          dropdownChanged={(event, detailType) =>
+            this.onDetailSelect(event, detailType)
+          }
+          character={this.props.charas.character}
+          raceDetailShown={this.state.raceDetailShown}
+          buttonClicked={() => this.raceDetailFinished()}
+          raceDetailFormIsValid={this.state.raceDetailFormIsValid}
+          subraceSelection={this.state.subraceSelection}
+          classSelection={this.state.classSelection}
+          backgroundSelection={this.state.backgroundSelection}
+          moreRaceInfo={this.showRaceDetailModal}
+        />
       </Aux>
     );
   }
@@ -296,8 +168,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchRace: name => dispatch(actions.fetchRace(name)),
-    postCharacter: (race, subrace, klass, background, userId) => dispatch(actions.postCharacter(race, subrace, klass, background, userId))
+    postCharacter: (race, subrace, klass, background, userId) =>
+      dispatch(actions.postCharacter(race, subrace, klass, background, userId))
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CharacterNew);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CharacterNew));
