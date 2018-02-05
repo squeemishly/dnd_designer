@@ -1,14 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-// import Transition from "react-transition-group/Transition";
+import { withRouter } from "react-router";
 
-import RaceSelectionSequence from './RaceSelectionSequence/RaceSelectionSequence'
-import CharacterDetailSequence from './CharacterDetailSequence/CharacterDetailSequence'
-// import CharacterSheet from '../CharacterSheet/CharacterSheet'
-// import Modal from "../UI/Modal/Modal";
+import RaceSelectionSequence from "./RaceSelectionSequence/RaceSelectionSequence";
+import CharacterDetailSequence from "./CharacterDetailSequence/CharacterDetailSequence";
 import Aux from "../../hoc/Aux/Aux";
 import * as actions from "../../store/actions";
-// import classes from "./CharacterNew.css";
 
 class CharacterNew extends Component {
   state = {
@@ -55,7 +52,7 @@ class CharacterNew extends Component {
   };
 
   renderCharacterSheet = () => {
-    
+    this.props.history.push('/character/list')
   };
 
   checkRaceDetailValidity(selectionType) {
@@ -104,7 +101,13 @@ class CharacterNew extends Component {
   };
 
   raceDetailFinished = () => {
-    this.props.postCharacter(this.state.selectedRace, this.state.subraceSelection, this.state.classSelection, this.state.backgroundSelection, this.props.userId)
+    this.props.postCharacter(
+      this.state.selectedRace,
+      this.state.subraceSelection,
+      this.state.classSelection,
+      this.state.backgroundSelection,
+      this.props.userId
+    );
     this.setState({ showRaceDetails: false });
   };
 
@@ -119,7 +122,7 @@ class CharacterNew extends Component {
   render() {
     return (
       <Aux>
-        <RaceSelectionSequence 
+        <RaceSelectionSequence
           showModal={this.state.showModal}
           removeModal={this.removeModal}
           race={this.state.selectedRace}
@@ -128,15 +131,17 @@ class CharacterNew extends Component {
           onExit={this.renderRaceDetails}
           races={this.state.races}
           onSelectRace={race => this.selectRaceInfo(race)}
-          />
-        <CharacterDetailSequence 
+        />
+        <CharacterDetailSequence
           showRaceDetails={this.state.showRaceDetails}
           onExit={() => this.renderCharacterSheet()}
           subraces={this.props.subraces}
           backgrounds={this.props.backgrounds}
           showRaceDetailModal={this.state.showRaceDetailModal}
           removeRaceDetailModal={this.removeRaceDetailModal}
-          dropdownChanged={(event, detailType) => this.onDetailSelect(event, detailType)}
+          dropdownChanged={(event, detailType) =>
+            this.onDetailSelect(event, detailType)
+          }
           character={this.props.charas.character}
           raceDetailShown={this.state.raceDetailShown}
           buttonClicked={() => this.raceDetailFinished()}
@@ -163,8 +168,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchRace: name => dispatch(actions.fetchRace(name)),
-    postCharacter: (race, subrace, klass, background, userId) => dispatch(actions.postCharacter(race, subrace, klass, background, userId))
+    postCharacter: (race, subrace, klass, background, userId) =>
+      dispatch(actions.postCharacter(race, subrace, klass, background, userId))
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CharacterNew);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CharacterNew));

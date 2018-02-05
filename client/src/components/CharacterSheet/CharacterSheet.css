@@ -12,8 +12,8 @@
     transform: translateX(-100%);
   }
   50% {
-    opacity: 1;
-    transform: translateX(10%);
+    opacity: 0.5;
+    transform: translateX(5%);
   }
   100% {
     opacity: 1;
@@ -65,7 +65,7 @@
 }
 
 .SheetContainer {
-  margin-left: 300px;
+  margin-left: 280px;
   flex: 1;
   height: 650px;
   border: 1px solid black;
