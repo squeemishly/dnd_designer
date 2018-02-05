@@ -40,6 +40,12 @@ class CharacterDetailSequence extends Component {
                 background => background.name
               );
             }
+            let classes = [];
+            if (this.props.classes) {
+              classes = this.props.classes.map(
+                klass => klass.name
+              );
+            }
             return (
               <div
                 style={{
@@ -57,7 +63,7 @@ class CharacterDetailSequence extends Component {
                   characterName={this.props.character.name}
                   characterImage={this.props.character.image}
                   subraceOptions={subraces}
-                  classOptions={[]}
+                  classOptions={classes}
                   backgroundOptions={backgrounds}
                   dropdownChanged={(event, detailType) =>
                     this.props.dropdownChanged(event, detailType)

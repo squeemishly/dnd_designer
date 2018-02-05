@@ -64,11 +64,11 @@ class CharacterNew extends Component {
         : (isValid = false);
     }
 
-    // if (this.state.class.length > 0) {
-    //   this.state.classSelection.length > 0 || selectionType === "Class"
-    //     ? (isValid = true && isValid)
-    //     : (isValid = false);
-    // }
+    if (this.props.classes.length > 0) {
+      this.state.classSelection.length > 0 || selectionType === "Class"
+        ? (isValid = true && isValid)
+        : (isValid = false);
+    }
 
     if (this.props.backgrounds.length > 0) {
       this.state.backgroundSelection.length > 0 ||
@@ -137,6 +137,7 @@ class CharacterNew extends Component {
           onExit={() => this.renderCharacterSheet()}
           subraces={this.props.subraces}
           backgrounds={this.props.backgrounds}
+          classes={this.props.classes}
           showRaceDetailModal={this.state.showRaceDetailModal}
           removeRaceDetailModal={this.removeRaceDetailModal}
           dropdownChanged={(event, detailType) =>
@@ -161,6 +162,7 @@ const mapStateToProps = state => {
     charas: state.charas,
     subraces: state.charas.subraces,
     backgrounds: state.charas.backgrounds,
+    classes: state.charas.classes,
     userId: state.auth.id
   };
 };
