@@ -14,7 +14,8 @@ const characterReducer = (state = initialState, action) => {
       case actionTypes.FETCH_CHARACTER_OPTIONS:
       return updateObject( state, {
         subraces: action.payload.subraces,
-        backgrounds: action.payload.backgrounds
+        backgrounds: action.payload.backgrounds,
+        classes: action.payload.classes
       })
     default:
       return state;
