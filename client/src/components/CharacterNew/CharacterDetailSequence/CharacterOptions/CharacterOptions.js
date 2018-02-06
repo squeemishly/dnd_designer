@@ -1,5 +1,5 @@
 import React from "react";
-import classes from "./RaceDetailInfo.css";
+import classes from "./CharacterOptions.css";
 
 const raceDetailInfo = props => (
   <div className={classes.Container}>
