@@ -1,5 +1,5 @@
 exports.seed = function(knex, Promise) {
-  return knex.raw("TRUNCATE TABLE backgrounds").then(function() {
+  return knex.raw("TRUNCATE TABLE backgrounds, characters CASCADE").then(function() {
     return Promise.all([
       knex.raw(
         "INSERT INTO backgrounds (name, skill_proficiencies, languages, tool_proficiencies, equipment, feature, description, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",

@@ -1,5 +1,5 @@
 exports.seed = function(knex, Promise) {
-  return knex.raw("TRUNCATE TABLE classes").then(function() {
+  return knex.raw("TRUNCATE TABLE classes, character_classes CASCADE").then(function() {
     return Promise.all([
       knex.raw(
         "INSERT INTO classes (name, hit_dice, hp_at_first_level, hp_at_higher_levels, armor_proficiencies, weapon_proficiencies, tool_proficiencies, saving_throws, skill_proficiencies, description, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
