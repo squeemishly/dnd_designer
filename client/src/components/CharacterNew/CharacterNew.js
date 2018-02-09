@@ -22,6 +22,7 @@ class CharacterNew extends Component {
     ],
     showModal: false,
     selectedRace: null,
+    raceId: null,
     showRaceSelections: true,
     showRaceDetails: false,
     showCharacterStats: false,
@@ -91,24 +92,21 @@ class CharacterNew extends Component {
           return subrace.name === value
         })
 
-        this.setState({ subraceSelection: value });
-        this.setState({ subraceId: subraceDetails.id });
+        this.setState({ subraceSelection: value, subraceId: subraceDetails.id });
         break;
       case "Class":
         const classDetails = this.props.charas.classes.find(klass => {
           return klass.name === value
         })
 
-        this.setState({ classSelection: value });
-        this.setState({ classId: classDetails.id });
+        this.setState({ classSelection: value, classId: classDetails.id });
         break;
       case "Background":
         const backgroundDetails = this.props.charas.backgrounds.find(background => {
           return background.name === value
         })
 
-        this.setState({ backgroundSelection: value });
-        this.setState({ backgroundId: backgroundDetails.id });
+        this.setState({ backgroundSelection: value, backgroundId: backgroundDetails.id });
         break;
       default:
         return null;
@@ -139,7 +137,6 @@ class CharacterNew extends Component {
 
   findAllRaceNames = () => {
     const races = this.props.fetchAllRaces()
-    console.log('races: ', races)
   }
 
   componentWillMount() {
