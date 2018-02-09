@@ -137,6 +137,15 @@ class CharacterNew extends Component {
     this.setState({ showRaceDetailModal: false });
   };
 
+  findAllRaceNames = () => {
+    const races = this.props.fetchAllRaces()
+    console.log('races: ', races)
+  }
+
+  componentWillMount() {
+    this.findAllRaceNames()
+  }
+
   render() {
     return (
       <Aux>
@@ -187,6 +196,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    fetchAllRaces: () => dispatch(actions.fetchAllRaces()),
     fetchRace: name => dispatch(actions.fetchRace(name)),
     postCharacter: (race, subrace, klass, background, userId) =>
       dispatch(actions.postCharacter(race, subrace, klass, background, userId))
