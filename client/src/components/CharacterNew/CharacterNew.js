@@ -29,8 +29,11 @@ class CharacterNew extends Component {
     showRaceDetailModal: false,
     raceDetailShown: null,
     subraceSelection: "",
+    subraceId: null,
     classSelection: "",
+    classId: null,
     backgroundSelection: "",
+    backgroundId: null,
     raceDetailFormIsValid: false
   };
 
@@ -84,13 +87,28 @@ class CharacterNew extends Component {
     const value = event.target.value;
     switch (selectionType) {
       case "Subrace":
+        const subraceDetails = this.props.charas.subraces.find(subrace => {
+          return subrace.name === value
+        })
+
         this.setState({ subraceSelection: value });
+        this.setState({ subraceId: subraceDetails.id });
         break;
       case "Class":
+        const classDetails = this.props.charas.classes.find(klass => {
+          return klass.name === value
+        })
+
         this.setState({ classSelection: value });
+        this.setState({ classId: classDetails.id });
         break;
       case "Background":
+        const backgroundDetails = this.props.charas.backgrounds.find(background => {
+          return background.name === value
+        })
+
         this.setState({ backgroundSelection: value });
+        this.setState({ backgroundId: backgroundDetails.id });
         break;
       default:
         return null;
@@ -103,9 +121,9 @@ class CharacterNew extends Component {
   raceDetailFinished = () => {
     this.props.postCharacter(
       this.state.selectedRace,
-      this.state.subraceSelection,
-      this.state.classSelection,
-      this.state.backgroundSelection,
+      this.state.subraceId,
+      this.state.classId,
+      this.state.backgroundId,
       this.props.userId
     );
     this.setState({ showRaceDetails: false });
