@@ -9,17 +9,6 @@ import * as actions from "../../store/actions";
 
 class CharacterNew extends Component {
   state = {
-    races: [
-      "Dwarf",
-      "Elf",
-      "Halfling",
-      "Human",
-      "Dragonborn",
-      "Half Elf",
-      "Gnome",
-      "Tiefling",
-      "Half Orc"
-    ],
     showModal: false,
     selectedRace: null,
     raceId: null,
@@ -135,48 +124,56 @@ class CharacterNew extends Component {
     this.setState({ showRaceDetailModal: false });
   };
 
-  findAllRaceNames = () => {
-    const races = this.props.fetchAllRaces()
-  }
-
   componentWillMount() {
-    this.findAllRaceNames()
+    this.props.fetchAllRaces()
   }
 
   render() {
+    const renderRaceList = () => {
+      if (this.props.races) {
+        return (
+          <Aux>
+            <RaceSelectionSequence
+              showModal={this.state.showModal}
+              removeModal={this.removeModal}
+              race={this.state.selectedRace}
+              selectRace={this.selectRace}
+              showRaceSelections={this.state.showRaceSelections}
+              onExit={this.renderRaceDetails}
+              raceObjects={this.props.charas.races}
+              onSelectRace={race => this.selectRaceInfo(race)}
+            />
+            <CharacterDetailSequence
+              showRaceDetails={this.state.showRaceDetails}
+              onExit={() => this.renderCharacterSheet()}
+              subraces={this.props.subraces}
+              backgrounds={this.props.backgrounds}
+              classes={this.props.classes}
+              showRaceDetailModal={this.state.showRaceDetailModal}
+              removeRaceDetailModal={this.removeRaceDetailModal}
+              dropdownChanged={(event, detailType) =>
+                this.onDetailSelect(event, detailType)
+              }
+              character={this.props.charas.character}
+              raceDetailShown={this.state.raceDetailShown}
+              buttonClicked={() => this.raceDetailFinished()}
+              raceDetailFormIsValid={this.state.raceDetailFormIsValid}
+              subraceSelection={this.state.subraceSelection}
+              classSelection={this.state.classSelection}
+              backgroundSelection={this.state.backgroundSelection}
+              moreRaceInfo={this.showRaceDetailModal}
+            />
+          </Aux>
+        )
+      } else {
+        return null
+      }
+    }
+
     return (
-      <Aux>
-        <RaceSelectionSequence
-          showModal={this.state.showModal}
-          removeModal={this.removeModal}
-          race={this.state.selectedRace}
-          selectRace={this.selectRace}
-          showRaceSelections={this.state.showRaceSelections}
-          onExit={this.renderRaceDetails}
-          races={this.state.races}
-          onSelectRace={race => this.selectRaceInfo(race)}
-        />
-        <CharacterDetailSequence
-          showRaceDetails={this.state.showRaceDetails}
-          onExit={() => this.renderCharacterSheet()}
-          subraces={this.props.subraces}
-          backgrounds={this.props.backgrounds}
-          classes={this.props.classes}
-          showRaceDetailModal={this.state.showRaceDetailModal}
-          removeRaceDetailModal={this.removeRaceDetailModal}
-          dropdownChanged={(event, detailType) =>
-            this.onDetailSelect(event, detailType)
-          }
-          character={this.props.charas.character}
-          raceDetailShown={this.state.raceDetailShown}
-          buttonClicked={() => this.raceDetailFinished()}
-          raceDetailFormIsValid={this.state.raceDetailFormIsValid}
-          subraceSelection={this.state.subraceSelection}
-          classSelection={this.state.classSelection}
-          backgroundSelection={this.state.backgroundSelection}
-          moreRaceInfo={this.showRaceDetailModal}
-        />
-      </Aux>
+      <div>
+        {renderRaceList()}
+      </div>
     );
   }
 }
@@ -184,6 +181,7 @@ class CharacterNew extends Component {
 const mapStateToProps = state => {
   return {
     charas: state.charas,
+    races: state.charas.races,
     subraces: state.charas.subraces,
     backgrounds: state.charas.backgrounds,
     classes: state.charas.classes,
