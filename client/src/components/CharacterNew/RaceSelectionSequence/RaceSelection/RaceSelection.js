@@ -4,7 +4,7 @@ import classes from "./RaceSelection.css";
 import Button from '../../../UI/Button/Button'
 
 const raceSelection = props => (
-  
+
       <div
         className={classes.RaceSelectContainer}
         style={{
@@ -15,19 +15,19 @@ const raceSelection = props => (
         <h1>CHOOSE YOUR RACE:</h1>
         <h4>Click a character race for more information</h4>
         <div className={classes.RaceList}>
-          {props.races.map(race => (
+          {props.raceObjects.map(race => (
               <Button
-                key={race}
+                key={race.id}
                 className={classes.RaceListItem}
-                clicked={() => props.onSelect(race)}
+                clicked={() => props.onSelect(race.id)}
               >
-                {race}
+                {race.name}
               </Button>
           ))}
         </div>
       </div>
-    
-  
+
+
 );
 
 export default raceSelection;

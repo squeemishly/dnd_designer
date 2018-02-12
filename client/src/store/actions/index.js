@@ -17,8 +17,8 @@ export const fetchAllRaces = () => async dispatch => {
   });
 };
 
-export const fetchRace = name => async dispatch => {
-  const res = await axios.get(`/api/character/race/${name}`);
+export const fetchRace = id => async dispatch => {
+  const res = await axios.get(`/api/character/race/${id}`);
   dispatch({
     type: actionTypes.FETCH_RACE_INFO,
     payload: res.data
