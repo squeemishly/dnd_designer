@@ -17,6 +17,10 @@ const characterReducer = (state = initialState, action) => {
         backgrounds: action.payload.backgrounds,
         classes: action.payload.classes
       })
+      case actionTypes.FETCH_ALL_RACES_INFO:
+      return updateObject( state, {
+        races: action.payload,
+      })
     default:
       return state;
   }
