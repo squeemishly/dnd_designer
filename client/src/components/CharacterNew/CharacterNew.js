@@ -106,9 +106,17 @@ class CharacterNew extends Component {
   };
 
   raceDetailFinished = () => {
+    let subraceId;
+
+    if (this.state.subraceId === null) {
+      subraceId = this.props.subraces[0].id;
+    } else {
+      subraceId = this.state.subraceId;
+    }
+
     this.props.postCharacter(
       this.state.selectedRace,
-      this.state.subraceId,
+      subraceId,
       this.state.classId,
       this.state.backgroundId,
       this.props.userId
