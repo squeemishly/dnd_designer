@@ -1,7 +1,3 @@
-const environment = process.env.NODE_ENV || "development";
-const configuration = require("../../../knexfile")[environment];
-const database = require("knex")(configuration);
-
 const Character = require("../../../lib/models/Character");
 
 const race_id = async (race) =>
