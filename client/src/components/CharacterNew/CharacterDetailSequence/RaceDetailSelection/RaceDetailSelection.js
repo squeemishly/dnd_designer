@@ -29,7 +29,7 @@ class RaceDetailSelection extends Component {
     };
 
     const renderDropdowns = () => {
-      if (this.props.subraceOptions) {
+      if (this.props.subraceOptions[0] !== "") {
         return <Dropdown
           selection={"Subrace"}
           options={this.props.subraceOptions}

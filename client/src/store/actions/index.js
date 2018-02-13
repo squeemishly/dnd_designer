@@ -9,8 +9,16 @@ export const fetchUser = () => async dispatch => {
   });
 };
 
-export const fetchRace = name => async dispatch => {
-  const res = await axios.get(`/api/character/race/${name}`);
+export const fetchAllRaces = () => async dispatch => {
+  const res = await axios.get(`/api/character/races`);
+  dispatch({
+    type: actionTypes.FETCH_ALL_RACES_INFO,
+    payload: res.data
+  });
+};
+
+export const fetchRace = id => async dispatch => {
+  const res = await axios.get(`/api/character/race/${id}`);
   dispatch({
     type: actionTypes.FETCH_RACE_INFO,
     payload: res.data

@@ -9,19 +9,9 @@ import * as actions from "../../store/actions";
 
 class CharacterNew extends Component {
   state = {
-    races: [
-      "Dwarf",
-      "Elf",
-      "Halfling",
-      "Human",
-      "Dragonborn",
-      "Half Elf",
-      "Gnome",
-      "Tiefling",
-      "Half Orc"
-    ],
     showModal: false,
     selectedRace: null,
+    raceId: null,
     showRaceSelections: true,
     showRaceDetails: false,
     showCharacterStats: false,
@@ -29,8 +19,11 @@ class CharacterNew extends Component {
     showRaceDetailModal: false,
     raceDetailShown: null,
     subraceSelection: "",
+    subraceId: null,
     classSelection: "",
+    classId: null,
     backgroundSelection: "",
+    backgroundId: null,
     raceDetailFormIsValid: false
   };
 
@@ -84,13 +77,25 @@ class CharacterNew extends Component {
     const value = event.target.value;
     switch (selectionType) {
       case "Subrace":
-        this.setState({ subraceSelection: value });
+        const subraceDetails = this.props.charas.subraces.find(subrace => {
+          return subrace.name === value
+        })
+
+        this.setState({ subraceSelection: value, subraceId: subraceDetails.id });
         break;
       case "Class":
-        this.setState({ classSelection: value });
+        const classDetails = this.props.charas.classes.find(klass => {
+          return klass.name === value
+        })
+
+        this.setState({ classSelection: value, classId: classDetails.id });
         break;
       case "Background":
-        this.setState({ backgroundSelection: value });
+        const backgroundDetails = this.props.charas.backgrounds.find(background => {
+          return background.name === value
+        })
+
+        this.setState({ backgroundSelection: value, backgroundId: backgroundDetails.id });
         break;
       default:
         return null;
@@ -101,11 +106,19 @@ class CharacterNew extends Component {
   };
 
   raceDetailFinished = () => {
+    let subraceId;
+
+    if (this.state.subraceId === null) {
+      subraceId = this.props.subraces[0].id;
+    } else {
+      subraceId = this.state.subraceId;
+    }
+
     this.props.postCharacter(
       this.state.selectedRace,
-      this.state.subraceSelection,
-      this.state.classSelection,
-      this.state.backgroundSelection,
+      subraceId,
+      this.state.classId,
+      this.state.backgroundId,
       this.props.userId
     );
     this.setState({ showRaceDetails: false });
@@ -119,40 +132,56 @@ class CharacterNew extends Component {
     this.setState({ showRaceDetailModal: false });
   };
 
+  componentWillMount() {
+    this.props.fetchAllRaces()
+  }
+
   render() {
+    const renderRaceList = () => {
+      if (this.props.races) {
+        return (
+          <Aux>
+            <RaceSelectionSequence
+              showModal={this.state.showModal}
+              removeModal={this.removeModal}
+              race={this.state.selectedRace}
+              selectRace={this.selectRace}
+              showRaceSelections={this.state.showRaceSelections}
+              onExit={this.renderRaceDetails}
+              raceObjects={this.props.charas.races}
+              onSelectRace={race => this.selectRaceInfo(race)}
+            />
+            <CharacterDetailSequence
+              showRaceDetails={this.state.showRaceDetails}
+              onExit={() => this.renderCharacterSheet()}
+              subraces={this.props.subraces}
+              backgrounds={this.props.backgrounds}
+              classes={this.props.classes}
+              showRaceDetailModal={this.state.showRaceDetailModal}
+              removeRaceDetailModal={this.removeRaceDetailModal}
+              dropdownChanged={(event, detailType) =>
+                this.onDetailSelect(event, detailType)
+              }
+              character={this.props.charas.character}
+              raceDetailShown={this.state.raceDetailShown}
+              buttonClicked={() => this.raceDetailFinished()}
+              raceDetailFormIsValid={this.state.raceDetailFormIsValid}
+              subraceSelection={this.state.subraceSelection}
+              classSelection={this.state.classSelection}
+              backgroundSelection={this.state.backgroundSelection}
+              moreRaceInfo={this.showRaceDetailModal}
+            />
+          </Aux>
+        )
+      } else {
+        return null
+      }
+    }
+
     return (
-      <Aux>
-        <RaceSelectionSequence
-          showModal={this.state.showModal}
-          removeModal={this.removeModal}
-          race={this.state.selectedRace}
-          selectRace={this.selectRace}
-          showRaceSelections={this.state.showRaceSelections}
-          onExit={this.renderRaceDetails}
-          races={this.state.races}
-          onSelectRace={race => this.selectRaceInfo(race)}
-        />
-        <CharacterDetailSequence
-          showRaceDetails={this.state.showRaceDetails}
-          onExit={() => this.renderCharacterSheet()}
-          subraces={this.props.subraces}
-          backgrounds={this.props.backgrounds}
-          classes={this.props.classes}
-          showRaceDetailModal={this.state.showRaceDetailModal}
-          removeRaceDetailModal={this.removeRaceDetailModal}
-          dropdownChanged={(event, detailType) =>
-            this.onDetailSelect(event, detailType)
-          }
-          character={this.props.charas.character}
-          raceDetailShown={this.state.raceDetailShown}
-          buttonClicked={() => this.raceDetailFinished()}
-          raceDetailFormIsValid={this.state.raceDetailFormIsValid}
-          subraceSelection={this.state.subraceSelection}
-          classSelection={this.state.classSelection}
-          backgroundSelection={this.state.backgroundSelection}
-          moreRaceInfo={this.showRaceDetailModal}
-        />
-      </Aux>
+      <div>
+        {renderRaceList()}
+      </div>
     );
   }
 }
@@ -160,6 +189,7 @@ class CharacterNew extends Component {
 const mapStateToProps = state => {
   return {
     charas: state.charas,
+    races: state.charas.races,
     subraces: state.charas.subraces,
     backgrounds: state.charas.backgrounds,
     classes: state.charas.classes,
@@ -169,6 +199,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    fetchAllRaces: () => dispatch(actions.fetchAllRaces()),
     fetchRace: name => dispatch(actions.fetchRace(name)),
     postCharacter: (race, subrace, klass, background, userId) =>
       dispatch(actions.postCharacter(race, subrace, klass, background, userId))

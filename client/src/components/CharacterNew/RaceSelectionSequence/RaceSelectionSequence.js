@@ -26,7 +26,7 @@ class RaceSelectionSequence extends Component {
           {state => (
             <RaceSelection
               state={state}
-              races={this.props.races}
+              raceObjects={this.props.raceObjects}
               onSelect={this.props.onSelectRace}
             />
           )}

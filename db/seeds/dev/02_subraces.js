@@ -1,11 +1,7 @@
-const environment = process.env.NODE_ENV || "development";
-const configuration = require("../../../knexfile")[environment];
-const database = require("knex")(configuration);
-
 const Character = require("../../../lib/models/Character");
 
 const race_id = async (race) =>
-  await Character.queryRace(race).then(r => r.id);
+  await Character.queryRaceByName(race).then(r => r.id);
 
 exports.seed = async function(knex, Promise) {
   return Promise.all([
@@ -196,6 +192,46 @@ exports.seed = async function(knex, Promise) {
           "White Draconic Ancestry",
           "None",
           "Cold Breath Weapon: 15 ft. cone (CON save)",
+          new Date()
+        ]
+      ),
+      knex.raw(
+        "INSERT INTO subraces (race_id, name, ability_score_increase, traits, created_at) VALUES (?, ?, ?, ?, ?)",
+        [
+          await race_id("Half Orc"),
+          "",
+          "",
+          "",
+          new Date()
+        ]
+      ),
+      knex.raw(
+        "INSERT INTO subraces (race_id, name, ability_score_increase, traits, created_at) VALUES (?, ?, ?, ?, ?)",
+        [
+          await race_id("Tiefling"),
+          "",
+          "",
+          "",
+          new Date()
+        ]
+      ),
+      knex.raw(
+        "INSERT INTO subraces (race_id, name, ability_score_increase, traits, created_at) VALUES (?, ?, ?, ?, ?)",
+        [
+          await race_id("Human"),
+          "",
+          "",
+          "",
+          new Date()
+        ]
+      ),
+      knex.raw(
+        "INSERT INTO subraces (race_id, name, ability_score_increase, traits, created_at) VALUES (?, ?, ?, ?, ?)",
+        [
+          await race_id("Half Elf"),
+          "",
+          "",
+          "",
           new Date()
         ]
       )
